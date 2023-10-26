@@ -124,8 +124,8 @@
 
 <script>
 import { ajaxDeviceLogList } from "@/api/device/deviceLog";
-// import { dateFormat } from "@/utils/my-utils";
-import dayjs from "dayjs";
+import { dateFormat } from "@/utils/my-utils";
+// import dayjs from "dayjs";
 export default {
   name: "deviceLog",
   data() {
@@ -161,8 +161,8 @@ export default {
         // 关键字
         keyWorder: null,
         // 搜索日期
-        // dayStr: dateFormat(new Date()),
-        dayStr: dayjs(new Date()).format("YYYY-MM-DD"),
+        dayStr: dateFormat(new Date()),
+        // dayStr: dayjs(new Date()).format("YYYY-MM-DD"),
         startTime: new Date(new Date().setHours(0, 0, 0)),
         endTime: new Date(new Date().setHours(23, 59, 59)),
       },
