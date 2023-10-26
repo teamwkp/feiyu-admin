@@ -68,6 +68,7 @@
     "babel-eslint": "10.1.0",
     "chalk": "4.1.2",
     "connect": "3.7.0",
+    "dayjs": "^1.11.10",
     "eslint": "7.32.0",
     "eslint-plugin-vue": "7.19.1",
     "lint-staged": "11.2.0",
@@ -76,8 +77,8 @@
     "sass-loader": "10.2.0",
     "script-ext-html-webpack-plugin": "2.1.5",
     "svg-sprite-loader": "6.0.9",
-    "vue-template-compiler": "2.6.14",
-    "validator": "^13.6.0"
+    "validator": "^13.6.0",
+    "vue-template-compiler": "2.6.14"
   },
   "engines": {
     "node": ">=8.9",
