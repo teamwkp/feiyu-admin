@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-26 20:58:18
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-10-26 22:34:00
+ * @LastEditTime : 2023-10-27 16:19:41
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/index/components/MapView.vue
 -->
@@ -46,10 +46,22 @@ export default {
       var url = `https://apis.map.qq.com/ws/direction/v1/driving/?from=${this.LatStart},${this.LngStart}&to=${this.LatEnd},${this.LngEnd}&output=jsonp&callback=mapCallbackFun&key=4VUBZ-BVIC4-UKNUR-DRNVR-XCTF2-3RFYW`;
       //发起JSONP请求，获取路线规划结果
       this.jsonp_request(url);
+
       var marker = new TMap.MultiMarker({
-        id: "marker-layer",
+        // id: "marker-layer",
         map: map,
         styles: {
+          "car-down": new TMap.MarkerStyle({
+            width: 40,
+            height: 40,
+            anchor: {
+              x: 20,
+              y: 20,
+            },
+            faceTo: "map",
+            rotate: 180,
+            src: "https://mapapi.qq.com/web/lbs/javascriptGL/demo/img/car.png",
+          }),
           start: new TMap.MarkerStyle({
             width: 25,
             height: 35,
@@ -64,6 +76,11 @@ export default {
           }),
         },
         geometries: [
+          {
+            id: "car",
+            styleId: "car-down",
+            position: new TMap.LatLng(this.LatStart, this.LngStart),
+          },
           {
             id: "start",
             styleId: "start",
