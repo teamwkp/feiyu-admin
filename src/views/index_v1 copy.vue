@@ -1,10 +1,14 @@
+<!--
+ * @Author       : liqiao
+ * @Date         : 2023-10-26 21:01:52
+ * @LastEditors  : liqiao
+ * @LastEditTime : 2023-10-26 21:01:53
+ * @Description  : Do not edit
+ * @FilePath     : /feiyu-admin/src/views/index_v1 copy.vue
+-->
 <template>
   <div class="dashboard-editor-container">
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
-
-    <el-row style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px">
-      <MapView />
-    </el-row>
 
     <el-row style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px">
       <line-chart :chart-data="lineChartData" />
@@ -36,7 +40,6 @@ import LineChart from "./dashboard/LineChart";
 import RaddarChart from "./dashboard/RaddarChart";
 import PieChart from "./dashboard/PieChart";
 import BarChart from "./dashboard/BarChart";
-import MapView from "./index/components/MapView";
 
 const lineChartData = {
   newVisitis: {
@@ -65,7 +68,6 @@ export default {
     RaddarChart,
     PieChart,
     BarChart,
-    MapView,
   },
   data() {
     return {

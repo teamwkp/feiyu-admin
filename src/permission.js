@@ -1,3 +1,11 @@
+/*
+ * @Author       : liqiao
+ * @Date         : 2023-10-26 13:43:02
+ * @LastEditors  : liqiao
+ * @LastEditTime : 2023-10-27 15:37:32
+ * @Description  : Do not edit
+ * @FilePath     : /feiyu-admin/src/permission.js
+ */
 import router from './router'
 import store from './store'
 import { Message } from 'element-ui'
@@ -44,6 +52,8 @@ router.beforeEach((to, from, next) => {
     } else {
       next(`/login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
       NProgress.done()
+      // TODO：
+      // next();
     }
   }
 })
