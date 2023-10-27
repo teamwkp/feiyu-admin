@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-26 22:30:48
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-10-26 22:30:49
+ * @LastEditTime : 2023-10-27 16:26:54
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/utils/mapFun.js
  */
@@ -22,12 +22,25 @@ window.display_polyline = function (pl) {
           }),
       },
       //折线数据定义
+      // geometries: [
+      //     {
+      //         id: 'pl_1', //折线唯一标识，删除时使用
+      //         styleId: 'style_blue', //绑定样式名
+      //         paths: pl,
+      //     },
+      // ],
       geometries: [
-          {
-              id: 'pl_1', //折线唯一标识，删除时使用
-              styleId: 'style_blue', //绑定样式名
-              paths: pl,
-          },
+        {
+          id: 'erasePath',
+          styleId: 'style_blue',
+          paths: [
+            new TMap.LatLng(39.98481500648338, 116.30571126937866),
+            new TMap.LatLng(39.982266575222155, 116.30596876144409),
+            new TMap.LatLng(39.982348784165886, 116.3111400604248),
+            new TMap.LatLng(39.978813710266024, 116.3111400604248),
+            new TMap.LatLng(39.978813710266024, 116.31699800491333),
+          ],
+        },
       ],
   });
 };
