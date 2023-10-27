@@ -165,6 +165,17 @@
           >导出</el-button
         >
       </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-download"
+          size="mini"
+          :loading="exportLoading"
+          @click="handleExport"
+          >导入电池</el-button
+        >
+      </el-col>
       <right-toolbar
         :showSearch.sync="showSearch"
         @queryTable="getList"
@@ -177,7 +188,7 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键" align="center" prop="id" />
+      <el-table-column label="主键" width="100" align="center" prop="id" />
       <el-table-column label="设备ID" align="center" prop="devId" />
       <el-table-column label="imei" align="center" prop="imei" />
       <el-table-column label="在线状态" align="center" prop="onlineStatus">
@@ -225,14 +236,15 @@
       <el-table-column
         label="操作"
         align="center"
+        width="180"
         class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
+            icon="el-icon-edit-outline"
+            @click="handleBms(scope.row)"
             v-hasPermi="['device:battery:edit']"
             >BMS信息</el-button
           >
@@ -457,6 +469,12 @@ export default {
         this.form = response.data;
         this.open = true;
         this.title = "修改电池";
+      });
+    },
+    /**BMS信息操作 */
+    handleBms(row) {
+      this.$router.push({
+        path: `/device/battery-bms/bms/${row.devId}`,
       });
     },
     /** 提交按钮 */
