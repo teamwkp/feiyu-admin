@@ -2,30 +2,39 @@
   <div class="dashboard-editor-container">
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
 
+    <!-- 地图 -->
     <el-row style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px">
       <MapView />
     </el-row>
 
-    <el-row style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px">
+    <!-- <el-row style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px">
       <line-chart :chart-data="lineChartData" />
-    </el-row>
+    </el-row> -->
 
     <el-row :gutter="32">
       <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
-          <raddar-chart />
+          <!-- <raddar-chart  /> -->
+          <div class="curve__day-content">
+            <div class="title">当日曲线</div>
+          </div>
+          <CurveTheDayView :chart-data="lineChartData" />
         </div>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
-          <pie-chart />
+          <!-- <pie-chart /> -->
+          <div class="curve__day-content">
+            <div class="title">单体电压视图</div>
+          </div>
+          <SingleVoltageView />
         </div>
       </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
+      <!-- <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
           <bar-chart />
         </div>
-      </el-col>
+      </el-col> -->
     </el-row>
   </div>
 </template>
@@ -37,6 +46,8 @@ import RaddarChart from "./dashboard/RaddarChart";
 import PieChart from "./dashboard/PieChart";
 import BarChart from "./dashboard/BarChart";
 import MapView from "./index/components/MapView";
+import CurveTheDayView from "./index/components/CurveTheDayView";
+import SingleVoltageView from "./index/components/SingleVoltageView";
 
 const lineChartData = {
   newVisitis: {
@@ -66,6 +77,8 @@ export default {
     PieChart,
     BarChart,
     MapView,
+    CurveTheDayView,
+    SingleVoltageView,
   },
   data() {
     return {
@@ -82,14 +95,17 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard-editor-container {
-  padding: 32px;
-  background-color: rgb(240, 242, 245);
   position: relative;
 
+  padding: 32px;
+
+  background-color: rgb(240, 242, 245);
+
   .chart-wrapper {
-    background: #fff;
-    padding: 16px 16px 0;
     margin-bottom: 32px;
+    padding: 16px 16px 0;
+
+    background: #fff;
   }
 }
 
