@@ -57,6 +57,7 @@ export default {
 <style lang="scss">
 .container {
   width: 100%;
+  min-width: 1200px;
   .header {
     width: 100%;
     height: 50px;
