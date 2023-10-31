@@ -161,7 +161,7 @@ export const constantRoutes = [
     hidden: true,
     children: [
       {
-        path: "bms/:batteryId(\\d+)",
+        path: "bms/:devId",
         component: (resolve) =>
           require(["@/views/device/battery/bms.vue"], resolve),
         name: "Bms",
