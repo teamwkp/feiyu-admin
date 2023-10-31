@@ -46,6 +46,8 @@
 import dayjs from "dayjs";
 import realTime from "./components/realTime.vue";
 import bMap from "./components/map.vue";
+import { getBmsInfo } from "@/api/device/battery";
+
 export default {
   data() {
     return {
@@ -60,10 +62,17 @@ export default {
   },
   mounted() {
     this.nowTime = dayjs(new Date().getTime()).format("YYYY-MM-DD HH:mm:ss");
+    this.getInfo();
   },
   methods: {
     changeActive(val) {
       this.activeTab = val;
+    },
+    async getInfo() {
+      let batterySn = this.$route.params && this.$route.params.devId;
+      console.log("sn", batterySn);
+
+      let res = await getBmsInfo(batterySn);
     },
   },
 };

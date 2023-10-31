@@ -58,3 +58,11 @@ export function importTemplate() {
     method: "get",
   });
 }
+
+// bms信息
+export function getBmsInfo(batterySn) {
+  return request({
+    url: `/device/battery/bmsInfo?batterySn=${batterySn}`,
+    method: "get",
+  });
+}
