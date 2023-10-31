@@ -1,8 +1,41 @@
 <template>
-  <el-card class="battery-info">
+  <el-card
+    class="battery-info"
+    :body-style="{
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+    }"
+  >
     <div class="battery-box">
       <img class="battery" src="@/assets/images/dianchi.jpg" alt="" />
-      <div class="insert"></div>
+      <div class="insert">SOC：99%</div>
+    </div>
+    <div class="text">电池状态：静止</div>
+    <div class="icons-box">
+      <div class="img-box">
+        <img class="iconpng" src="@/assets/images/电压.png" alt="" />
+      </div>
+
+      <div>总电压V</div>
+      <div class="subtext">70.28</div>
+    </div>
+    <div class="icons-box">
+      <div class="img-box">
+        <img class="iconpng" src="@/assets/images/电流.png" alt="" />
+      </div>
+
+      <div>电流A</div>
+      <div class="subtext">70.28</div>
+    </div>
+    <div class="icons-box">
+      <div class="img-box">
+        <img class="iconpng" src="@/assets/images/功率.png" alt="" />
+      </div>
+
+      <div>功率KW</div>
+      <div class="subtext">70.28</div>
     </div>
   </el-card>
 </template>
@@ -16,27 +49,60 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.iconpng {
+  width: 35px;
+}
 .battery-info {
-  display: flex;
-  align-items: center;
   width: 100%;
+  display: flex;
   height: 200px;
   border-radius: 5px;
   margin-bottom: 10px;
   .battery-box {
     position: relative;
     .battery {
-      width: 100px;
+      width: 180px;
     }
     .insert {
-      top: 9px;
-      left: 13px;
+      top: 17px;
+      left: 24px;
       border-radius: 3px;
       position: absolute;
-      width: 60px;
-      height: 37px;
-      background: green;
+      width: 100px;
+      height: 66px;
+      background: #0dc191;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: bold;
     }
   }
+  .text {
+    font-size: 14px;
+  }
+  .icons-box {
+    width: 105px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    .img-box {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5px;
+    }
+  }
+}
+.subtext {
+  color: #0dc191;
+  font-size: 16px;
+  margin-top: 8px;
 }
 </style>

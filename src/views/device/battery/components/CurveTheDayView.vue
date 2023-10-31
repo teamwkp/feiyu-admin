@@ -21,7 +21,6 @@
 
 
 
-
     </div>
   </div>
 </template>
@@ -152,15 +151,15 @@ export default {
 <style lang="scss" scope>
 .curve__day-content {
   width: 100%;
-  height: 400px;
+  height: 370px;
   .title {
-      margin: 20px 0 20px 20px;
+      margin: 10px 0 20px 10px;
 
       color: #419fff;
     }
   .chart__content {
     width: 100%;
-    height: 350px;
+    height: 300px;
   }
   .pagination__content{
     display:flex;

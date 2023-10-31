@@ -1,11 +1,3 @@
-<!--
- * @Author       : liqiao
- * @Date         : 2023-10-29 21:41:37
- * @LastEditors  : liqiao
- * @LastEditTime : 2023-10-29 22:08:53
- * @Description  : Do not edit
- * @FilePath     : /feiyu-admin/src/views/device/battery/bms.vue
--->
 <template>
   <div class="container">
     <div class="header">
@@ -29,8 +21,16 @@
     </div>
     <div class="line2 header">
       <div class="tab">
+        <div style="margin-right: 15px">macid：033333</div>
+        <div>电池编号：{{ batterySn }}</div>
+      </div>
+      <div class="tab">
         更新时间：<span :style="`color:${color}`"> {{ nowTime }}</span>
       </div>
+      <div class="tab">固件版本：<span>NW_T2008</span></div>
+      <el-button size="small" type="primary" icon="el-icon-search"
+        >刷新</el-button
+      >
     </div>
     <realTime v-if="activeTab == 'realTime'"></realTime>
 
@@ -53,7 +53,8 @@ export default {
     return {
       activeTab: "realTime",
       nowTime: "--",
-      color: "#71e2a3",
+      color: "#0DC191",
+      batterySn: "",
     };
   },
   components: {
@@ -71,6 +72,7 @@ export default {
     async getInfo() {
       let batterySn = this.$route.params && this.$route.params.devId;
       console.log("sn", batterySn);
+      this.batterySn = batterySn;
 
       let res = await getBmsInfo(batterySn);
     },
@@ -89,10 +91,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 14px;
     .tab {
       display: flex;
       align-items: center;
-      font-size: 14px;
       cursor: pointer;
       .label {
         color: #555;
@@ -104,9 +106,12 @@ export default {
     }
   }
   .line2 {
+    padding: 0 30px;
     height: 60px;
     margin-top: 10px;
     border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

@@ -118,12 +118,17 @@ export default {
 <style lang="scss" scope>
 .single-voltage__view {
   width: 100%;
+  height: 100%;
   .title {
-    padding: 30px 0 20px 0;
+    padding: 10px 0 20px 0;
+    box-sizing: border-box;
   }
-  .bar__content {
-    width: 100%;
-    height: 350px;
+  .content {
+    height: 85%;
+    .bar__content {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>
