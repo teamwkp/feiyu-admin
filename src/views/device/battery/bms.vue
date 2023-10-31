@@ -55,7 +55,7 @@ export default {
       this.activeTab = val;
     },
     async getInfo() {
-      let batterySn = this.$route.params && this.$route.params.batteryId;
+      let batterySn = this.$route.params && this.$route.params.devId;
       console.log("sn", batterySn);
 
       let res = await getBmsInfo(batterySn);
