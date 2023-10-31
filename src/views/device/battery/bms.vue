@@ -1,3 +1,11 @@
+<!--
+ * @Author       : liqiao
+ * @Date         : 2023-10-29 21:41:37
+ * @LastEditors  : liqiao
+ * @LastEditTime : 2023-10-29 22:08:53
+ * @Description  : Do not edit
+ * @FilePath     : /feiyu-admin/src/views/device/battery/bms.vue
+-->
 <template>
   <div class="container">
     <div class="header">
@@ -25,7 +33,13 @@
       </div>
     </div>
     <realTime v-if="activeTab == 'realTime'"></realTime>
-    <bMap v-if="activeTab == 'map'"></bMap>
+
+    <el-row
+      v-if="activeTab == 'map'"
+      style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px"
+    >
+      <bMap></bMap>
+    </el-row>
   </div>
 </template>
 <script>

@@ -7,7 +7,11 @@
         <histogram />
       </div>
     </div>
-    <div class="right-box"></div>
+    <div class="right-box">
+      <div class="title">当日曲线</div>
+
+      <CurveTheDayView />
+    </div>
   </div>
 </template>
 
@@ -15,6 +19,7 @@
 import batteryInfo from "./batteryInfo.vue";
 import histogram from "./histogram.vue";
 import listInfo from "./listInfo.vue";
+import CurveTheDayView from "./CurveTheDayView";
 export default {
   data() {
     return {};
@@ -23,6 +28,7 @@ export default {
     batteryInfo,
     listInfo,
     histogram,
+    CurveTheDayView,
   },
 };
 </script>
@@ -43,6 +49,10 @@ export default {
     max-height: 1063px;
     border-radius: 5px;
     border: 1px solid #eee;
+    .title {
+      margin: 20px 0 10px 20px;
+      color: #419fff;
+    }
   }
 }
 </style>
