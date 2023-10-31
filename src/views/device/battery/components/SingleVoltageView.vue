@@ -2,38 +2,33 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:23
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-10-29 22:14:24
+ * @LastEditTime : 2023-10-31 16:39:18
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/SingleVoltageView.vue
 -->
 
 <template>
-  <div :class="className" :style="{ height: height, width: width }" />
+  <!-- <div :class="className" :style="{ height: height, width: width }" /> -->
+
+  <div class="single-voltage__view">
+    <div class="title">单体电压视图</div>
+
+    <div class="content">
+      <div class="bar__content" ref="bar" />
+    </div>
+  </div>
 </template>
 
 <script>
 import * as echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
-import resize from "@/views/dashboard/mixins/resize";
+// import resize from "@/views/dashboard/mixins/resize";
 
 const animationDuration = 6000;
 
 export default {
-  mixins: [resize],
-  props: {
-    className: {
-      type: String,
-      default: "chart",
-    },
-    width: {
-      type: String,
-      default: "100%",
-    },
-    height: {
-      type: String,
-      default: "300px",
-    },
-  },
+  // mixins: [resize],
+
   data() {
     return {
       chart: null,
@@ -53,7 +48,8 @@ export default {
   },
   methods: {
     initChart() {
-      this.chart = echarts.init(this.$el, "macarons");
+      // this.chart = echarts.init(this.$el, "macarons");
+      this.chart = echarts.init(this.$refs.bar, "macarons");
 
       this.chart.setOption({
         tooltip: {
@@ -118,3 +114,16 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scope>
+.single-voltage__view {
+  width: 100%;
+  .title {
+    padding: 30px 0 20px 0;
+  }
+  .bar__content {
+    width: 100%;
+    height: 350px;
+  }
+}
+</style>

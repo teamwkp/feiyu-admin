@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:04
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-10-29 23:15:06
+ * @LastEditTime : 2023-10-31 17:22:04
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/CurveTheDayView.vue
 -->
@@ -10,9 +10,18 @@
 <template>
   <div class="curve__day-content">
     <div class="title">当日曲线</div>
+      <div ref="line" class="chart__content" />
 
-    <div>
-      <div class="chart" />
+    <div class="pagination__content">
+      <el-pagination
+    layout="prev, pager, next"
+    :total="50">
+  </el-pagination>
+    </div>
+
+
+
+
     </div>
   </div>
 </template>
@@ -20,10 +29,8 @@
 <script>
 import * as echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
-import resize from "@/views/dashboard/mixins/resize.js";
 
 export default {
-  mixins: [resize],
   props: {
     autoResize: {
       type: Boolean,
@@ -61,7 +68,9 @@ export default {
   },
   methods: {
     initChart() {
-      this.chart = echarts.init(this.$el, "macarons");
+      // this.chart = echarts.init(this.$el, "macarons");
+      this.chart = echarts.init(this.$refs.line, "macarons");
+
       this.setOptions(this.chartData);
     },
     setOptions({ expectedData, actualData } = {}) {
@@ -144,9 +153,19 @@ export default {
 .curve__day-content {
   width: 100%;
   height: 400px;
-  .chart {
+  .title {
+      margin: 20px 0 20px 20px;
+
+      color: #419fff;
+    }
+  .chart__content {
     width: 100%;
     height: 350px;
+  }
+  .pagination__content{
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }
 </style>

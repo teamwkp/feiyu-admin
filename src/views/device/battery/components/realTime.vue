@@ -1,3 +1,11 @@
+<!--
+ * @Author       : liqiao
+ * @Date         : 2023-10-29 21:41:37
+ * @LastEditors  : liqiao
+ * @LastEditTime : 2023-10-31 14:48:15
+ * @Description  : Do not edit
+ * @FilePath     : /feiyu-admin/src/views/device/battery/components/realTime.vue
+-->
 <template>
   <div class="realTime-wrap">
     <div class="left-box">
@@ -5,11 +13,10 @@
         <battery-info />
         <listInfo />
         <histogram />
+        <SingleVoltageView />
       </div>
     </div>
     <div class="right-box">
-      <div class="title">当日曲线</div>
-
       <CurveTheDayView />
     </div>
   </div>
@@ -20,6 +27,8 @@ import batteryInfo from "./batteryInfo.vue";
 import histogram from "./histogram.vue";
 import listInfo from "./listInfo.vue";
 import CurveTheDayView from "./CurveTheDayView";
+import SingleVoltageView from "./SingleVoltageView";
+
 export default {
   data() {
     return {};
@@ -29,6 +38,7 @@ export default {
     listInfo,
     histogram,
     CurveTheDayView,
+    SingleVoltageView,
   },
 };
 </script>
@@ -49,10 +59,6 @@ export default {
     max-height: 1063px;
     border-radius: 5px;
     border: 1px solid #eee;
-    .title {
-      margin: 20px 0 10px 20px;
-      color: #419fff;
-    }
   }
 }
 </style>

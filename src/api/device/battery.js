@@ -1,3 +1,11 @@
+/*
+ * @Author       : liqiao
+ * @Date         : 2023-10-31 13:57:32
+ * @LastEditors  : liqiao
+ * @LastEditTime : 2023-10-31 14:07:54
+ * @Description  : Do not edit
+ * @FilePath     : /feiyu-admin/src/api/device/battery.js
+ */
 import request from "@/utils/request";
 
 // 查询电池列表
@@ -65,4 +73,13 @@ export function getBmsInfo(batterySn) {
     url: `/device/battery/bmsInfo?batterySn=${batterySn}`,
     method: "get",
   });
+}
+
+// 查看地图轨迹
+export function mapInfo(query) {
+  return request({
+    url: "/device/battery/mapInfo",
+    method: "get",
+    params: query,
+  })
 }
