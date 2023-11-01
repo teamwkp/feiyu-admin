@@ -21,18 +21,21 @@
     </div>
     <div class="line2 header">
       <div class="tab">
-        <div style="margin-right: 15px">macid：033333</div>
+        <div style="margin-right: 15px">macid：--</div>
         <div>电池编号：{{ batterySn }}</div>
       </div>
       <div class="tab">
         更新时间：<span :style="`color:${color}`"> {{ nowTime }}</span>
       </div>
-      <div class="tab">固件版本：<span>NW_T2008</span></div>
+      <div class="tab">固件版本：<span>--</span></div>
       <el-button size="small" type="primary" icon="el-icon-search"
         >刷新</el-button
       >
     </div>
-    <realTime v-if="activeTab == 'realTime'"></realTime>
+    <realTime
+      :batteryObj="batteryObj"
+      v-if="activeTab == 'realTime'"
+    ></realTime>
 
     <el-row
       v-if="activeTab == 'map'"
@@ -55,6 +58,7 @@ export default {
       nowTime: "--",
       color: "#0DC191",
       batterySn: "",
+      batteryObj: null,
     };
   },
   components: {
@@ -75,6 +79,10 @@ export default {
       this.batterySn = batterySn;
 
       let res = await getBmsInfo(batterySn);
+      console.log("res", res);
+      if (res.code == 200) {
+        this.batteryObj = res.data;
+      }
     },
   },
 };

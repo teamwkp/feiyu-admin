@@ -124,7 +124,7 @@ export default {
     box-sizing: border-box;
   }
   .content {
-    height: 85%;
+    height: 80%;
     .bar__content {
       width: 100%;
       height: 100%;

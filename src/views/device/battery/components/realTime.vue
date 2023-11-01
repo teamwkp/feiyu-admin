@@ -2,7 +2,7 @@
   <div class="realTime-wrap">
     <div class="left-box">
       <div class="module-info">
-        <battery-info />
+        <battery-info :batteryObj="batteryObj" />
         <listInfo />
         <histogram />
       </div>
@@ -28,6 +28,12 @@ import Report from "./report.vue";
 export default {
   data() {
     return {};
+  },
+  props: {
+    batteryObj: {
+      type: Object,
+      default: () => {},
+    },
   },
   components: {
     batteryInfo,

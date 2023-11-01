@@ -10,16 +10,35 @@
   >
     <div class="battery-box">
       <img class="battery" src="@/assets/images/dianchi.jpg" alt="" />
-      <div class="insert">SOC：99%</div>
+      <div
+        v-if="batteryObj && batteryObj.soc > 0"
+        class="insert"
+        :style="`width:${120 * (batteryObj.soc / 100)}px`"
+      ></div>
+      <div v-else class="insert" style="width: 0"></div>
+      <div v-if="batteryObj" class="insertText">SOC：{{ batteryObj.soc }}%</div>
     </div>
-    <div class="text">电池状态：静止</div>
+    <div class="text" v-if="batteryObj && batteryObj.motionState == 0">
+      电池状态：<span style="color: #888">移动</span>
+    </div>
+    <div class="text" v-else-if="batteryObj && batteryObj.motionState == 1">
+      电池状态：<span style="color: #888">静止</span>
+    </div>
+    <div class="text" v-else-if="batteryObj && batteryObj.motionState == 2">
+      电池状态：<span style="color: #888">存储</span>
+    </div>
+    <div class="text" v-if="batteryObj && batteryObj.motionState == 3">
+      电池状态：<span style="color: #888">休眠</span>
+    </div>
     <div class="icons-box">
       <div class="img-box">
         <img class="iconpng" src="@/assets/images/电压.png" alt="" />
       </div>
 
       <div>总电压V</div>
-      <div class="subtext">70.28</div>
+      <div class="subtext" v-if="batteryObj">
+        {{ batteryObj.voltage / 100 || 0 }}
+      </div>
     </div>
     <div class="icons-box">
       <div class="img-box">
@@ -27,7 +46,9 @@
       </div>
 
       <div>电流A</div>
-      <div class="subtext">70.28</div>
+      <div class="subtext" v-if="batteryObj">
+        {{ batteryObj.current / 100 || 0 }}
+      </div>
     </div>
     <div class="icons-box">
       <div class="img-box">
@@ -35,7 +56,11 @@
       </div>
 
       <div>功率KW</div>
-      <div class="subtext">70.28</div>
+      <div class="subtext" v-if="batteryObj">
+        {{
+          ((batteryObj.voltage / 100) * (batteryObj.current / 100)).toFixed(2)
+        }}
+      </div>
     </div>
   </el-card>
 </template>
@@ -44,6 +69,12 @@
 export default {
   data() {
     return {};
+  },
+  props: {
+    batteryObj: {
+      type: Object,
+      default: () => {},
+    },
   },
 };
 </script>
@@ -68,7 +99,6 @@ export default {
       left: 24px;
       border-radius: 3px;
       position: absolute;
-      width: 100px;
       height: 66px;
       background: #0dc191;
       display: flex;
@@ -76,6 +106,12 @@ export default {
       justify-content: center;
       font-size: 14px;
       font-weight: bold;
+    }
+    .insertText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
   .text {
