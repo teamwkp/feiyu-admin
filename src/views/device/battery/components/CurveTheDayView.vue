@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:04
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-11-02 17:20:50
+ * @LastEditTime : 2023-11-02 18:04:53
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/CurveTheDayView.vue
 -->
@@ -80,7 +80,7 @@ export default {
       timeValue: null,
       batterySn: this.$route.params && this.$route.params.devId,
       pageNum: 0,
-      pageSize: 100,
+      pageSize: 500,
       total: 0,
       xAxisList: [],
       chartData: {
@@ -151,12 +151,12 @@ export default {
       }
       const res = await getBmsData({
         batterySn: this.batterySn,
-        time: this.dateValue.getTime(),
-        startTime: this.timeValue[0].getTime(),
-        endTime: this.timeValue[1].getTime(),
-        // time: "1698854400000",
-        // startTime: "1698857466000",
-        // endTime: "1698940266000",
+        // time: this.dateValue.getTime(),
+        // startTime: this.timeValue[0].getTime(),
+        // endTime: this.timeValue[1].getTime(),
+        time: "2023_11_02",
+        startTime: "2023_11_02 00:00:00",
+        endTime: "2023_11_02 59:59:59",
         pageNum: this.pageNum,
         pageSize: this.pageSize,
       });
