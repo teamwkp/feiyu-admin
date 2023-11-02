@@ -2,14 +2,12 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:23
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-10-31 16:39:18
+ * @LastEditTime : 2023-11-02 14:45:47
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/SingleVoltageView.vue
 -->
 
 <template>
-  <!-- <div :class="className" :style="{ height: height, width: width }" /> -->
-
   <div class="single-voltage__view">
     <div class="title">单体电压视图</div>
 
@@ -22,19 +20,19 @@
 <script>
 import * as echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
-// import resize from "@/views/dashboard/mixins/resize";
+import resize from "@/views/dashboard/mixins/resize";
+import { coreVoltageList } from "@/api/device/battery";
 
 const animationDuration = 6000;
 
 export default {
-  // mixins: [resize],
-
+  mixins: [resize],
+  props: ["xAxisList", "yAxisList"],
   data() {
-    return {
-      chart: null,
-    };
+    return {};
   },
   mounted() {
+    // this.coreVoltageListOperate();
     this.$nextTick(() => {
       this.initChart();
     });
@@ -46,10 +44,19 @@ export default {
     this.chart.dispose();
     this.chart = null;
   },
+  watch: {
+    yAxisList: {
+      handler(val) {
+        this.$nextTick(() => {
+          this.initChart();
+        });
+      },
+    },
+  },
   methods: {
     initChart() {
-      // this.chart = echarts.init(this.$el, "macarons");
-      this.chart = echarts.init(this.$refs.bar, "macarons");
+      // this.chart = echarts.init(this.$refs.bar, "macarons");
+      this.chart = echarts.init(this.$refs.bar);
 
       this.chart.setOption({
         tooltip: {
@@ -69,7 +76,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            data: this.xAxisList,
             axisTick: {
               alignWithLabel: true,
             },
@@ -85,27 +92,11 @@ export default {
         ],
         series: [
           {
-            name: "pageA",
+            name: "电压",
             type: "bar",
             stack: "vistors",
             barWidth: "60%",
-            data: [79, 52, 200, 334, 390, 330, 220],
-            animationDuration,
-          },
-          {
-            name: "pageB",
-            type: "bar",
-            stack: "vistors",
-            barWidth: "60%",
-            data: [80, 52, 200, 334, 390, 330, 220],
-            animationDuration,
-          },
-          {
-            name: "pageC",
-            type: "bar",
-            stack: "vistors",
-            barWidth: "60%",
-            data: [30, 52, 200, 334, 390, 330, 220],
+            data: this.yAxisList,
             animationDuration,
           },
         ],
@@ -120,8 +111,8 @@ export default {
   width: 100%;
   height: 100%;
   .title {
-    padding: 10px 0 20px 0;
     box-sizing: border-box;
+    padding: 10px 0 20px 0;
   }
   .content {
     height: 80%;

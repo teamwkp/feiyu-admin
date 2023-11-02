@@ -15,28 +15,22 @@
 </template>
 
 <script>
-// import resize from "./mixins/resize";
+import resize from "@/views/dashboard/mixins/resize.js";
 import { mapInfo } from "@/api/device/battery";
 
 export default {
-  // mixins: [resize],
+  mixins: [resize],
   props: {},
   data() {
     return {
       dateValue: null,
       latCenter: "",
       lngCenter: "",
-      latStart: 39.98481500648338,
-      lngStart: 116.30571126937866,
-      latEnd: 39.978813710266024,
-      lngEnd: 116.31699800491333,
-      mapPath: [
-        new TMap.LatLng(39.98481500648338, 116.30571126937866),
-        new TMap.LatLng(39.982266575222155, 116.30596876144409),
-        new TMap.LatLng(39.982348784165886, 116.3111400604248),
-        new TMap.LatLng(39.978813710266024, 116.3111400604248),
-        new TMap.LatLng(39.978813710266024, 116.31699800491333),
-      ],
+      latStart: "",
+      lngStart: "",
+      latEnd: "",
+      lngEnd: "",
+      mapPath: [new TMap.LatLng(39.98481500648338, 116.30571126937866)],
       batterySn: this.$route.params && this.$route.params.devId,
       marker: null,
       mapObj: null,
@@ -47,19 +41,11 @@ export default {
     dateValue: {
       handler(val) {
         console.log("🚀 ~ file: map.vue:47 ~ handler ~ val:", val);
-        if (val === undefined || val === "") {
-          return;
-        }
-        this.latCenter = this.latStart;
-        this.lngCenter = this.lngStart;
-        this.mapPath = [
-          new TMap.LatLng(39.98481500648338, 116.30571126937866),
-          new TMap.LatLng(39.982266575222155, 116.30596876144409),
-          new TMap.LatLng(39.982348784165886, 116.3111400604248),
-          new TMap.LatLng(39.978813710266024, 116.3111400604248),
-          new TMap.LatLng(39.978813710266024, 116.31699800491333),
-        ];
-        this.resetMap();
+        // if (val === undefined || val === "") {
+        //   return;
+        // }
+
+        this.mapInfoOperate(true);
       },
     },
   },
@@ -68,17 +54,40 @@ export default {
   },
 
   methods: {
-    async mapInfoOperate() {
-      console.log("mapInfoOperate");
+    async mapInfoOperate(isReset) {
       const time = this.dateValue ? this.dateValue.getTime() : undefined;
       const res = await mapInfo({ batterySn: this.batterySn, time });
 
       if (Number(res.code) === 200) {
         const data = res.data;
-        this.latCenter = data.latitude || "";
-        this.lngCenter = data.longitude || "";
+        if (isReset) {
+          if (Array.isArray(data)) {
+            const center = data[data.length - 1];
+            this.latCenter = center.latitude;
+            this.lngCenter = center.longitude;
 
-        this.tencentMap();
+            this.mapPath = data
+              .reverse()
+              .map((item) => new TMap.LatLng(item.latitude, item.longitude));
+            this.resetMap(false);
+          } else {
+            this.latCenter = data.latitude || "";
+            this.lngCenter = data.longitude || "";
+            this.mapPath = [new TMap.LatLng(data.latitude, data.longitude)];
+            console.log(
+              "🚀 ~ file: map.vue:85 ~ mapInfoOperate ~ this.mapPath:",
+              this.mapPath
+            );
+            this.resetMap(true);
+          }
+        } else {
+          this.latCenter = data.latitude || "";
+          this.lngCenter = data.longitude || "";
+          this.mapPath = [new TMap.LatLng(data.latitude, data.longitude)];
+
+          // this.mapPath = [];
+          this.tencentMap();
+        }
       }
     },
 
@@ -117,6 +126,32 @@ export default {
         ],
       });
 
+      let currGeometries = [
+        {
+          id: "car",
+          styleId: "car-down",
+          position: this.mapPath[0],
+        },
+      ];
+
+      if (this.mapPath.length > 1) {
+        const otherParams = [
+          {
+            id: "start",
+            styleId: "start",
+            // position: new TMap.LatLng(this.latStart, this.lngStart),
+            position: this.mapPath[0],
+          },
+          {
+            id: "end",
+            styleId: "end",
+            // position: new TMap.LatLng(this.latEnd, this.lngEnd),
+            position: this.mapPath[this.mapPath.length - 1],
+          },
+        ];
+        currGeometries = [currGeometries, ...otherParams];
+      }
+
       this.marker = new TMap.MultiMarker({
         map: map,
         styles: {
@@ -144,23 +179,7 @@ export default {
             src: "https://mapapi.qq.com/web/lbs/javascriptGL/demo/img/end.png",
           }),
         },
-        geometries: [
-          // {
-          //   id: "car",
-          //   styleId: "car-down",
-          //   position: new TMap.LatLng(this.latStart, this.lngStart),
-          // },
-          {
-            id: "start",
-            styleId: "start",
-            position: new TMap.LatLng(this.latStart, this.lngStart),
-          },
-          {
-            id: "end",
-            styleId: "end",
-            position: new TMap.LatLng(this.latEnd, this.lngEnd),
-          },
-        ],
+        geometries: currGeometries,
       });
 
       // this.marker.moveAlong(
@@ -199,40 +218,59 @@ export default {
     },
 
     // 重置
-    resetMap() {
-      this.marker.stopMove();
+    resetMap(noData) {
+      this.marker && this.marker.stopMove && this.marker.stopMove();
       // if (isMoving) return;
       const that = this;
       // const path = this.mapPath;
-      this.polylineLayer.setGeometries([
-        {
-          id: "path1",
-          styleId: "style_blue",
-          paths: that.mapPath,
-        },
-        {
-          id: "path2",
-          styleId: "style_blue",
-          paths: that.mapPath,
-        },
-      ]);
-      this.marker.setGeometries([
-        // {
-        //   id: "car",
-        //   styleId: "car-down",
-        //   position: that.mapPath[0],
-        // },
-        {
-          id: "start",
-          styleId: "start",
-          position: that.mapPath[0],
-        },
-        {
-          id: "end",
-          styleId: "end",
-          position: that.mapPath[that.mapPath.length - 1],
-        },
-      ]);
+      this.polylineLayer &&
+        this.polylineLayer.setGeometries &&
+        this.polylineLayer.setGeometries([
+          {
+            id: "path1",
+            styleId: "style_blue",
+            paths: that.mapPath,
+          },
+          {
+            id: "path2",
+            styleId: "style_blue",
+            paths: that.mapPath,
+          },
+        ]);
+
+      if (noData) {
+        this.marker &&
+          this.marker.setGeometries &&
+          this.marker.setGeometries([
+            {
+              id: "car",
+              styleId: "car-down",
+              position: that.mapPath[0],
+            },
+          ]);
+      } else {
+        console.log("🚀 ~ file: map.vue:250 ~ resetMap ~ noData:", noData);
+
+        this.marker.setGeometries([
+          // ...currGeometries,
+          // {
+          //   id: "car",
+          //   styleId: "car-down",
+          //   position: that.mapPath[0],
+          // },
+          {
+            id: "start",
+            styleId: "start",
+            position: that.mapPath[0],
+          },
+          {
+            id: "end",
+            styleId: "end",
+            position: that.mapPath[that.mapPath.length - 1],
+          },
+        ]);
+      }
+
       const center = new TMap.LatLng(
         this.latCenter || this.latStart,
         this.lngCenter || this.lngStart
@@ -275,10 +313,21 @@ export default {
 
 <style lang="scss" scope>
 .map-content {
+  box-sizing: border-box;
   width: 100%;
+  /* height: calc(100vh - 330px); */
+  padding-bottom: 30px;
 
   .search__content {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
     margin: 20px 0 10px 20px;
+  }
+  .map_container {
+    width: 100%;
+    /* height: calc(100vh - 330px); */
   }
 }
 </style>

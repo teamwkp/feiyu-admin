@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-31 13:57:32
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-10-31 14:07:54
+ * @LastEditTime : 2023-11-02 13:39:02
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/api/device/battery.js
  */
@@ -79,6 +79,24 @@ export function getBmsInfo(batterySn) {
 export function mapInfo(query) {
   return request({
     url: "/device/battery/mapInfo",
+    method: "get",
+    params: query,
+  })
+}
+
+// 查看曲线图数据
+export function getBmsData(query) {
+  return request({
+    url: "/device/battery/getBmsData",
+    method: "get",
+    params: query,
+  })
+}
+
+// 查看曲线图数据
+export function coreVoltageList(query) {
+  return request({
+    url: "/device/battery/coreVoltageList",
     method: "get",
     params: query,
   })
