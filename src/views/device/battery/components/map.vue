@@ -1,7 +1,7 @@
 <template>
   <div class="map-content">
     <div class="search__content">
-      <span class="demonstration">选择日期：</span>
+      <span class="demonstration">选择时间查询轨迹：</span>
       <el-date-picker
         v-model="dateValue"
         type="date"
@@ -321,7 +321,7 @@ export default {
   .search__content {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
 
     margin: 20px 0 10px 20px;
   }
