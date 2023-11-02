@@ -62,15 +62,7 @@ export const constantRoutes = [
   {
     path: "",
     component: Layout,
-    redirect: "index",
-    children: [
-      {
-        path: "index",
-        component: (resolve) => require(["@/views/index_v1"], resolve),
-        name: "Index",
-        meta: { title: "首页", icon: "dashboard", affix: true },
-      },
-    ],
+    redirect: "/device/battery",
   },
   {
     path: "/user",

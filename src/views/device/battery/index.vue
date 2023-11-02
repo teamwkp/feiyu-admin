@@ -16,7 +16,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="imei" prop="imei">
+      <!-- <el-form-item label="imei" prop="imei">
         <el-input
           v-model="queryParams.imei"
           placeholder="请输入imei"
@@ -24,7 +24,7 @@
           size="small"
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="在线状态" prop="onlineStatus">
         <el-select
           v-model="queryParams.onlineStatus"
@@ -188,7 +188,7 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="主键" width="100" align="center" prop="id" />
       <el-table-column label="设备ID" align="center" prop="devId" />
-      <el-table-column label="imei" align="center" prop="imei" />
+      <!-- <el-table-column label="imei" align="center" prop="imei" /> -->
       <el-table-column label="在线状态" align="center" prop="onlineStatus">
         <template slot-scope="scope">
           <dict-tag
@@ -218,7 +218,9 @@
         width="180"
       >
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.createTime, "{y}-{m}-{d}") }}</span>
+          <span>{{
+            parseTime(scope.row.createTime, "{y}-{m}-{d} {h}:{i}:{s}")
+          }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -228,7 +230,9 @@
         width="180"
       >
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.updateTime, "{y}-{m}-{d}") }}</span>
+          <span>{{
+            parseTime(scope.row.updateTime, "{y}-{m}-{d} {h}:{i}:{s}")
+          }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -241,7 +245,7 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit-outline"
+            icon="el-icon-set-up"
             @click="handleBms(scope.row)"
             v-hasPermi="['device:battery:edit']"
             >BMS信息</el-button
@@ -280,9 +284,9 @@
         <el-form-item label="设备ID" prop="devId">
           <el-input v-model="form.devId" placeholder="请输入设备ID" />
         </el-form-item>
-        <el-form-item label="imei" prop="imei">
+        <!-- <el-form-item label="imei" prop="imei">
           <el-input v-model="form.imei" placeholder="请输入imei" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="设备类型" prop="devType">
           <el-select v-model="form.devType" placeholder="请选择设备类型">
             <el-option

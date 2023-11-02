@@ -3,7 +3,7 @@
     <div class="left-box">
       <div class="module-info">
         <battery-info :batteryObj="batteryObj" />
-        <listInfo />
+        <listInfo :batteryObj="batteryObj" />
         <histogram />
       </div>
     </div>
@@ -52,11 +52,11 @@ export default {
   display: flex;
   justify-content: space-between;
   .left-box {
-    width: 69.3%;
+    width: 67%;
     border-radius: 5px;
   }
   .right-box {
-    width: 30%;
+    width: 32.5%;
     height: calc(100vh - 45px);
     max-height: 1063px;
     border-radius: 5px;

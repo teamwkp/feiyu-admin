@@ -21,14 +21,19 @@
     </div>
     <div class="line2 header">
       <div class="tab">
-        <div style="margin-right: 15px">macid：--</div>
+        <div style="margin-right: 15px">imsi：--</div>
         <div>电池编号：{{ batterySn }}</div>
       </div>
       <div class="tab">
         更新时间：<span :style="`color:${color}`"> {{ nowTime }}</span>
       </div>
-      <div class="tab">固件版本：<span>--</span></div>
-      <el-button size="small" type="primary" icon="el-icon-search"
+      <div class="tab">
+        固件版本：<span v-if="batteryObj">{{ batteryObj.hardVersion }}</span>
+      </div>
+      <div class="tab">
+        软件版本：<span v-if="batteryObj">{{ batteryObj.softVersion }}</span>
+      </div>
+      <el-button size="small" type="primary" icon="el-icon-refresh"
         >刷新</el-button
       >
     </div>
@@ -66,7 +71,6 @@ export default {
     bMap,
   },
   mounted() {
-    this.nowTime = dayjs(new Date().getTime()).format("YYYY-MM-DD HH:mm:ss");
     this.getInfo();
   },
   methods: {
@@ -82,6 +86,9 @@ export default {
       console.log("res", res);
       if (res.code == 200) {
         this.batteryObj = res.data;
+        this.nowTime = dayjs(this.batteryObj.recodeTime).format(
+          "YYYY-MM-DD HH:mm:ss"
+        );
       }
     },
   },
