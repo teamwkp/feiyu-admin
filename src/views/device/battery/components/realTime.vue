@@ -57,7 +57,7 @@ export default {
   }
   .right-box {
     width: 32.5%;
-    height: calc(100vh - 45px);
+    /* height: calc(100vh - 45px); */
     max-height: 1063px;
     border-radius: 5px;
     .report-box {

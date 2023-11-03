@@ -81,7 +81,7 @@ export function mapInfo(query) {
     url: "/device/battery/mapInfo",
     method: "get",
     params: query,
-  })
+  });
 }
 
 // 查看曲线图数据
@@ -90,7 +90,7 @@ export function getBmsData(query) {
     url: "/device/battery/getBmsData",
     method: "get",
     params: query,
-  })
+  });
 }
 
 // 查看曲线图数据
@@ -99,5 +99,14 @@ export function coreVoltageList(query) {
     url: "/device/battery/coreVoltageList",
     method: "get",
     params: query,
-  })
+  });
+}
+
+// 告警次数
+export function getGaojing(query) {
+  return request({
+    url: "/device/battery/getAlarmCount",
+    method: "get",
+    params: query,
+  });
 }

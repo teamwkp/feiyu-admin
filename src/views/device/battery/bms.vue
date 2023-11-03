@@ -21,17 +21,23 @@
     </div>
     <div class="line2 header">
       <div class="tab">
-        <div style="margin-right: 15px">imsi：--</div>
+        <div style="margin-right: 15px">
+          imsi：{{ batteryObj.imsi || "--" }}
+        </div>
         <div>电池编号：{{ batterySn }}</div>
       </div>
       <div class="tab">
         更新时间：<span :style="`color:${color}`"> {{ nowTime }}</span>
       </div>
       <div class="tab">
-        固件版本：<span v-if="batteryObj">{{ batteryObj.hardVersion }}</span>
+        固件版本：<span v-if="batteryObj">{{
+          batteryObj.hardVersion || "--"
+        }}</span>
       </div>
       <div class="tab">
-        软件版本：<span v-if="batteryObj">{{ batteryObj.softVersion }}</span>
+        软件版本：<span v-if="batteryObj">{{
+          batteryObj.softVersion || "--"
+        }}</span>
       </div>
       <el-button size="small" type="primary" icon="el-icon-refresh"
         >刷新</el-button

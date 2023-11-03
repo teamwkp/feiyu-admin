@@ -18,18 +18,50 @@
       <div v-else class="insert" style="width: 0"></div>
       <div v-if="batteryObj" class="insertText">SOC：{{ batteryObj.soc }}%</div>
     </div>
-    <div class="text" v-if="batteryObj && batteryObj.motionState == 0">
-      电池状态：<span style="color: #888">移动</span>
+    <div>
+      <div class="text itemi" v-if="batteryObj && batteryObj.motionState == 0">
+        运动状态：<span style="color: #888">移动</span>
+      </div>
+      <div
+        class="text itemi"
+        v-else-if="batteryObj && batteryObj.motionState == 1"
+      >
+        运动状态：<span style="color: #888">静止</span>
+      </div>
+      <div
+        class="text itemi"
+        v-else-if="batteryObj && batteryObj.motionState == 2"
+      >
+        运动状态：<span style="color: #888">存储</span>
+      </div>
+      <div class="text itemi" v-if="batteryObj && batteryObj.motionState == 3">
+        运动状态：<span style="color: #888">休眠</span>
+      </div>
+      <div class="text itemi" v-if="batteryObj">
+        联网状态：<span style="color: #888" v-if="batteryObj.lineStatus === 0"
+          >离线</span
+        >
+        <span style="color: #888" v-if="batteryObj.lineStatus === 1">在线</span>
+      </div>
+      <div class="text itemi" v-if="batteryObj">
+        充电状态：<span style="color: #888" v-if="batteryObj.chargeState === 0"
+          >放电状态</span
+        >
+        <span style="color: #888" v-if="batteryObj.chargeState === 1"
+          >充电状态</span
+        >
+        <span style="color: #888" v-if="batteryObj.chargeState === 2">
+          负载在位状态
+        </span>
+        <span style="color: #888" v-if="batteryObj.chargeState === 3">
+          充电在位状态
+        </span>
+        <span style="color: #888" v-if="batteryObj.chargeState === 4">
+          空载状态
+        </span>
+      </div>
     </div>
-    <div class="text" v-else-if="batteryObj && batteryObj.motionState == 1">
-      电池状态：<span style="color: #888">静止</span>
-    </div>
-    <div class="text" v-else-if="batteryObj && batteryObj.motionState == 2">
-      电池状态：<span style="color: #888">存储</span>
-    </div>
-    <div class="text" v-if="batteryObj && batteryObj.motionState == 3">
-      电池状态：<span style="color: #888">休眠</span>
-    </div>
+
     <div class="icons-box">
       <div class="img-box">
         <img class="iconpng" src="@/assets/images/电压.png" alt="" />
@@ -37,7 +69,7 @@
 
       <div>总电压V</div>
       <div class="subtext" v-if="batteryObj">
-        {{ batteryObj.voltage / 100 || 0 }}
+        {{ (batteryObj.voltage / 100).toFixed(2) || 0 }}
       </div>
     </div>
     <div class="icons-box">
@@ -47,7 +79,7 @@
 
       <div>电流A</div>
       <div class="subtext" v-if="batteryObj">
-        {{ batteryObj.current / 100 || 0 }}
+        {{ (batteryObj.current / 100).toFixed(2) || 0 }}
       </div>
     </div>
     <div class="icons-box">
@@ -55,7 +87,7 @@
         <img class="iconpng" src="@/assets/images/功率.png" alt="" />
       </div>
 
-      <div>功率KW</div>
+      <div>功率W</div>
       <div class="subtext" v-if="batteryObj">
         {{
           ((batteryObj.voltage / 100) * (batteryObj.current / 100)).toFixed(2)
@@ -112,6 +144,10 @@ export default {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
     }
   }
   .text {
@@ -140,5 +176,8 @@ export default {
   color: #0dc191;
   font-size: 16px;
   margin-top: 8px;
+}
+.itemi {
+  margin-bottom: 10px;
 }
 </style>

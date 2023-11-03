@@ -122,7 +122,8 @@ export default {
   display: flex;
 
   width: 100%;
-  height: calc(100vh - 650px);
+  height: 100%;
+  /* height: calc(100vh - 650px); */
   min-height: 300px;
   margin-top: 10px;
 

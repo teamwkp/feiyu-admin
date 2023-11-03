@@ -11,31 +11,89 @@
             {{ batteryObj.batteryStatus == 1 ? "三元" : "铁锂" }}
           </span>
         </div>
-        <div class="item">电池标称容量：--AH</div>
-        <div class="item">电池实际容量：--AH</div>
-        <div class="item">休眠等待时间：--s</div>
-        <div class="item">单体过压保护：--V</div>
-        <div class="item">单体过压保护延时：--s</div>
+        <div class="item">
+          坐标类型：<span v-if="batteryObj && batteryObj.coordinateType == 1"
+            >E/N</span
+          >
+          <span v-else-if="batteryObj && batteryObj.coordinateType == 2"
+            >E/S</span
+          ><span v-else-if="batteryObj && batteryObj.coordinateType == 3"
+            >W/N</span
+          ><span v-else-if="batteryObj && batteryObj.coordinateType == 4"
+            >W/S</span
+          >
+          <span v-else-if="batteryObj && batteryObj.coordinateType == 5"
+            >GPS未定位</span
+          >
+          <span v-else>--</span>
+        </div>
+        <div class="item">
+          GMS信号强度：<span v-if="batteryObj">
+            {{ batteryObj.gmsSignal || "0" }}
+          </span>
+        </div>
+        <div class="item">
+          速度信息：<span v-if="batteryObj">{{ batteryObj.speed }}km/h</span>
+        </div>
+        <div class="item">
+          行驶里程：<span v-if="batteryObj"
+            >{{ batteryObj.odometer || 0 }}km</span
+          >
+        </div>
       </div>
     </div>
     <div class="module" style="width: 50%">
-      <div class="title" style="height: 20px"></div>
-      <div class="list-content" style="display: flex">
-        <div style="margin-right: 60px">
+      <div class="title" style="height: 10px"></div>
+      <div class="list-content" style="width: 100%; display: flex">
+        <div style="width: 50%">
           <div class="item" v-if="batteryObj">
-            剩余容量：{{ batteryObj.capacity }}AH
+            剩余容量：<span v-if="batteryObj">{{
+              (batteryObj.capacity / 100).toFixed(2)
+            }}</span>
+            AH
           </div>
-          <div class="item">充电MOS：开启</div>
+          <div class="item">
+            功率温度值：<span v-if="batteryObj"
+              >{{ batteryObj.powerTemperature || 0 }}°C</span
+            >
+          </div>
           <div class="item" v-if="batteryObj">
-            均衡：{{ batteryObj.equilibriumSign }}
+            电芯温度：<span v-if="batteryObj"></span
+            >{{ batteryObj.coreTemperature || 0 }}°C
           </div>
-          <div class="item">电池实际容量：{{ "--" }}AH</div>
+          <div class="item">
+            环境温度：<span v-if="batteryObj">{{
+              batteryObj.temperature || 0
+            }}</span
+            >°C
+          </div>
+          <div class="item">
+            总放电：<span v-if="batteryObj"
+              >{{ batteryObj.totalDischarge || 0 }}Ah</span
+            >
+          </div>
+          <div class="item">
+            总充电：<span v-if="batteryObj"
+              >{{ batteryObj.temperature || 0 }}Ah
+            </span>
+          </div>
         </div>
-        <div>
-          <div class="item">当前连接状态：{{ "--" }}</div>
-          <div class="item">放电MOS：{{ "--" }}</div>
+        <div style="width: 50%">
+          <div class="item">
+            循环次数：<span>{{ batteryObj.loopCount || 0 }}</span>
+          </div>
+          <div class="item">
+            电芯串数：<span v-if="batteryObj">{{
+              batteryObj.coreVoltageSeries
+            }}</span>
+          </div>
           <div class="item" v-if="batteryObj">
-            电池串数：{{ batteryObj.coreVoltageSeries }}
+            C_FET状态：<span v-if="batteryObj.bmsCFETState == 0"> 关闭</span>
+            <span v-else>开启</span>
+          </div>
+          <div class="item" v-if="batteryObj">
+            D_FET状态：<span v-if="batteryObj.bmsDFETState == 0">关闭</span>
+            <span v-else>开启</span>
           </div>
         </div>
       </div>
@@ -111,6 +169,7 @@ export default {
   display: flex;
   width: 100%;
   border-radius: 5px;
+
   .module {
     .title {
       font-size: 14px;
