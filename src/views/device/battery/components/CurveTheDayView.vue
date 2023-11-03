@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:04
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-11-03 11:44:12
+ * @LastEditTime : 2023-11-03 20:37:47
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/CurveTheDayView.vue
 -->
@@ -172,33 +172,30 @@ export default {
         const data = res.data;
         this.total = data && data.total;
 
-        this.xAxisList =
-          data &&
-          data.list &&
-          data.list.map((item) =>
-            this.getTimeStrByDate(new Date(item.recordTime))
-          );
+        const currList =
+          (data && data.list && data && data.list.reverse()) || [];
+        this.xAxisList = currList.map((item) =>
+          this.getTimeStrByDate(new Date(item.recordTime))
+        );
 
-        data &&
-          data.list &&
-          data.list.forEach((item) => {
-            this.chartData.voltageList.push(
-              (Number(item.voltage) / 100).toFixed(2)
-            );
-            this.chartData.currentList.push(
-              (Number(item.current) / 100).toFixed(2)
-            );
-            this.chartData.socList.push((Number(item.soc) / 100).toFixed(2));
-            this.chartData.capacityList.push(
-              (Number(item.capacity) / 100).toFixed(2)
-            );
-            this.chartData.powerTemperatureList.push(item.powerTemperature);
-            this.chartData.coreTemperatureList.push(item.coreTemperature);
-            this.chartData.temperatureList.push(item.temperature);
-            this.chartData.diffVolList.push(
-              (Number(item.diffVol) / 100).toFixed(2)
-            );
-          });
+        currList.forEach((item) => {
+          this.chartData.voltageList.push(
+            (Number(item.voltage) / 100).toFixed(2)
+          );
+          this.chartData.currentList.push(
+            (Number(item.current) / 100).toFixed(2)
+          );
+          this.chartData.socList.push((Number(item.soc) / 100).toFixed(2));
+          this.chartData.capacityList.push(
+            (Number(item.capacity) / 100).toFixed(2)
+          );
+          this.chartData.powerTemperatureList.push(item.powerTemperature);
+          this.chartData.coreTemperatureList.push(item.coreTemperature);
+          this.chartData.temperatureList.push(item.temperature);
+          this.chartData.diffVolList.push(
+            (Number(item.diffVol) / 100).toFixed(2)
+          );
+        });
       }
     },
 
