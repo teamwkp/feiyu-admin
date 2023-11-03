@@ -39,7 +39,11 @@
           batteryObj.softVersion || "--"
         }}</span>
       </div>
-      <el-button size="small" type="primary" icon="el-icon-refresh"
+      <el-button
+        size="small"
+        @click="refresh"
+        type="primary"
+        icon="el-icon-refresh"
         >刷新</el-button
       >
     </div>
@@ -83,9 +87,11 @@ export default {
     changeActive(val) {
       this.activeTab = val;
     },
+    refresh() {
+      this.$router.go(0);
+    },
     async getInfo() {
       let batterySn = this.$route.params && this.$route.params.devId;
-      console.log("sn", batterySn);
       this.batterySn = batterySn;
 
       let res = await getBmsInfo(batterySn);
