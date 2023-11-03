@@ -17,8 +17,9 @@
     </div>
     <div class="search__content">
       <div class="search__date">
-        <span class="demonstration">选择日期：</span>
+        <span class="demonstration" style="font-size: 14px">选择日期：</span>
         <el-date-picker
+          style="width: 80%; max-width: 300px"
           v-model="dateValue"
           type="date"
           @change="changeDate"
@@ -27,10 +28,10 @@
         </el-date-picker>
       </div>
       <div class="search__date">
-        <span class="demonstration">选择时间：</span>
-        <!-- default-value="[]" -->
+        <span class="demonstration" style="font-size: 14px">选择时间：</span>
         <el-time-picker
           is-range
+          style="width: 80%; max-width: 300px"
           v-model="timeValue"
           range-separator="至"
           start-placeholder="开始时间"
@@ -56,11 +57,10 @@
         :page-size="pageSize"
         layout="prev, pager, next"
         :total="total"
+        :background="true"
       >
       </el-pagination>
     </div>
-
-    <!-- </div> -->
   </div>
 </template>
 
@@ -579,7 +579,7 @@ export default {
   }
   .chart__content {
     width: 100%;
-    height: 400px;
+    height: 500px;
   }
   .time__content {
     display: flex;

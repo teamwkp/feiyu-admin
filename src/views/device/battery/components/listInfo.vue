@@ -4,7 +4,7 @@
     :body-style="{ width: '100%', display: 'flex', height: '205px' }"
   >
     <div class="module" style="width: 25%">
-      <div class="title">参数信息</div>
+      <div class="title">实时信息</div>
       <div class="list-content">
         <div class="item">
           电池类型：<span v-if="batteryObj">

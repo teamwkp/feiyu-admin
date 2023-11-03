@@ -19,6 +19,14 @@
       <div v-if="batteryObj" class="insertText">SOC：{{ batteryObj.soc }}%</div>
     </div>
     <div>
+      <div class="text itemi" v-if="batteryObj">
+        联网状态：<span style="color: red" v-if="batteryObj.lineStatus === 0"
+          >离线</span
+        >
+        <span style="color: #0dc191" v-if="batteryObj.lineStatus === 1"
+          >在线</span
+        >
+      </div>
       <div class="text itemi" v-if="batteryObj && batteryObj.motionState == 0">
         运动状态：<span style="color: #888">移动</span>
       </div>
@@ -37,12 +45,7 @@
       <div class="text itemi" v-if="batteryObj && batteryObj.motionState == 3">
         运动状态：<span style="color: #888">休眠</span>
       </div>
-      <div class="text itemi" v-if="batteryObj">
-        联网状态：<span style="color: #888" v-if="batteryObj.lineStatus === 0"
-          >离线</span
-        >
-        <span style="color: #888" v-if="batteryObj.lineStatus === 1">在线</span>
-      </div>
+
       <div class="text itemi" v-if="batteryObj">
         充电状态：<span style="color: #888" v-if="batteryObj.chargeState === 0"
           >放电状态</span
