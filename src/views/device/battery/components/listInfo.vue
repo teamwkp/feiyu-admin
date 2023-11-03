@@ -80,7 +80,9 @@
         </div>
         <div style="width: 50%">
           <div class="item">
-            循环次数：<span>{{ batteryObj.loopCount || 0 }}</span>
+            循环次数：<span v-if="batteryObj">{{
+              batteryObj.loopCount || 0
+            }}</span>
           </div>
           <div class="item">
             电芯串数：<span v-if="batteryObj">{{
@@ -107,7 +109,7 @@
             <div v-if="batteryObj">
               <span v-if="batteryObj.dtuError == '1'">GPS信号异常</span>
               <span v-if="batteryObj.dtuError == '2'">GSM信号异常</span>
-              <span v-else>--</span>
+              <span v-else>无</span>
             </div>
           </div>
           <div class="item">
@@ -125,7 +127,7 @@
               <span v-if="batteryObj.bmsError == '09'">总电压过压保护</span>
               <span v-if="batteryObj.bmsError == '10'">总电压欠压保护</span>
               <span v-if="batteryObj.bmsError == '11'">单芯间压差过大</span>
-              <span v-else>--</span>
+              <span v-else>无</span>
             </div>
           </div>
           <div class="item">
@@ -141,7 +143,7 @@
               <span v-if="batteryObj.bmsAlarm == '07'">MOS高温告警</span>
               <span v-if="batteryObj.bmsAlarm == '08'">环境低温告警</span>
               <span v-if="batteryObj.bmsAlarm == '09'">环境高温告警</span>
-              <span v-else>--</span>
+              <span v-else>无</span>
             </div>
           </div>
         </div>

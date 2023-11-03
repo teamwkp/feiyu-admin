@@ -22,7 +22,7 @@
     <div class="line2 header">
       <div class="tab">
         <div style="margin-right: 15px">
-          imsi：{{ batteryObj.imsi || "--" }}
+          imsi：<span v-if="batteryObj">{{ batteryObj.imsi || "--" }}</span>
         </div>
         <div>电池编号：{{ batterySn }}</div>
       </div>

@@ -52,11 +52,11 @@ export default {
   display: flex;
   justify-content: space-between;
   .left-box {
-    width: 67%;
+    width: 65%;
     border-radius: 5px;
   }
   .right-box {
-    width: 32.5%;
+    width: 34.5%;
     /* height: calc(100vh - 45px); */
     max-height: 1063px;
     border-radius: 5px;

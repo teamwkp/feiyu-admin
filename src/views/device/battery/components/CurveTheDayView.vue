@@ -197,9 +197,27 @@ export default {
       }
     },
 
+    // 过滤函数
+    filterFrom(data) {
+      console.log("data", data);
+      return data.filter((k) => {
+        if (
+          k.capacity == null ||
+          k.coreTemperature == null ||
+          k.diffVol == null ||
+          k.powerTemperature == null ||
+          k.soc == null ||
+          k.temperature == null ||
+          k.voltage == null
+        ) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+    },
+
     initChart() {
-      // this.chart = echarts.init(this.$el, "macarons");
-      // this.chart = echarts.init(this.$refs.line, "macarons");
       this.chart = echarts.init(this.$refs.line);
 
       this.setOptions(this.chartData);
