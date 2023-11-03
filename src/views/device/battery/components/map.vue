@@ -9,6 +9,7 @@
         @change="changeDate"
       >
       </el-date-picker>
+      <el-button type="primary" @click="queryOperate">查询</el-button>
     </div>
     <div id="map_container"></div>
   </div>
@@ -17,7 +18,7 @@
 <script>
 import resize from "@/views/dashboard/mixins/resize.js";
 import { mapInfo } from "@/api/device/battery";
-
+import electroMobileImg from "@/assets/images/electromobile2.png";
 export default {
   mixins: [resize],
   props: {},
@@ -38,16 +39,11 @@ export default {
     };
   },
   watch: {
-    dateValue: {
-      handler(val) {
-        console.log("🚀 ~ file: map.vue:47 ~ handler ~ val:", val);
-        // if (val === undefined || val === "") {
-        //   return;
-        // }
-
-        this.mapInfoOperate(true);
-      },
-    },
+    // dateValue: {
+    //   handler(val) {
+    //     this.mapInfoOperate(true);
+    //   },
+    // },
   },
   mounted() {
     this.mapInfoOperate();
@@ -74,10 +70,6 @@ export default {
             this.latCenter = data.latitude || "";
             this.lngCenter = data.longitude || "";
             this.mapPath = [new TMap.LatLng(data.latitude, data.longitude)];
-            console.log(
-              "🚀 ~ file: map.vue:85 ~ mapInfoOperate ~ this.mapPath:",
-              this.mapPath
-            );
             this.resetMap(true);
           }
         } else {
@@ -104,6 +96,7 @@ export default {
 
       const path = this.mapPath;
       const map = this.mapObj;
+      const that = this;
       this.polylineLayer = new TMap.MultiPolyline({
         map, // 绘制到目标地图
         // 折线样式定义
@@ -156,15 +149,14 @@ export default {
         map: map,
         styles: {
           "car-down": new TMap.MarkerStyle({
-            width: 40,
-            height: 40,
+            width: 52.5,
+            height: 30,
             anchor: {
               x: 20,
               y: 20,
             },
             faceTo: "map",
-            rotate: 180,
-            src: "https://mapapi.qq.com/web/lbs/javascriptGL/demo/img/car.png",
+            src: electroMobileImg,
           }),
           start: new TMap.MarkerStyle({
             width: 25,
@@ -216,6 +208,9 @@ export default {
     changeDate(e) {
       // console.log("🚀 ~ file: map.vue:173 ~ changeDate ~ e:", e, e.getTime());
     },
+    queryOperate() {
+      this.mapInfoOperate(true);
+    },
 
     // 重置
     resetMap(noData) {
@@ -249,8 +244,6 @@ export default {
             },
           ]);
       } else {
-        console.log("🚀 ~ file: map.vue:250 ~ resetMap ~ noData:", noData);
-
         this.marker.setGeometries([
           // ...currGeometries,
           // {
@@ -324,6 +317,9 @@ export default {
     justify-content: center;
 
     margin: 20px 0 10px 20px;
+    button {
+      margin-left: 20px;
+    }
   }
   .map_container {
     width: 100%;

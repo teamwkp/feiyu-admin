@@ -2,14 +2,19 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:04
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-11-02 18:04:53
+ * @LastEditTime : 2023-11-03 11:44:12
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/CurveTheDayView.vue
 -->
 
 <template>
   <div class="curve__day-content">
-    <div class="title">当日曲线</div>
+    <div class="title">
+      <span>当日曲线</span>
+      <el-button type="primary" size="small" @click="queryOperate"
+        >查询</el-button
+      >
+    </div>
     <div class="search__content">
       <div class="search__date">
         <span class="demonstration">选择日期：</span>
@@ -80,7 +85,7 @@ export default {
       timeValue: null,
       batterySn: this.$route.params && this.$route.params.devId,
       pageNum: 0,
-      pageSize: 500,
+      pageSize: 300,
       total: 0,
       xAxisList: [],
       chartData: {
@@ -126,7 +131,6 @@ export default {
   mounted() {
     // 默认日期
     // this.dateValue = this.dateDefault;
-    // this.getBmsDataOperate();
     this.$nextTick(() => {
       this.initChart();
     });
@@ -140,8 +144,6 @@ export default {
   },
   methods: {
     async getBmsDataOperate() {
-      // TODO:
-      const time = this.dateValue ? this.dateValue.getTime() : undefined;
       if (!this.dateValue || !this.timeValue) {
         this.$message({
           message: "请选择日期和时间",
@@ -149,29 +151,36 @@ export default {
         });
         return;
       }
+
+      const time = this.getTimeStrByDate(this.dateValue, "date", "_");
+      const startTime = `${time} ${this.getTimeStrByDate(
+        this.timeValue && this.timeValue[0]
+      )}`;
+      const endTime = `${time}${this.getTimeStrByDate(
+        this.timeValue && this.timeValue[1]
+      )}`;
       const res = await getBmsData({
         batterySn: this.batterySn,
-        // time: this.dateValue.getTime(),
-        // startTime: this.timeValue[0].getTime(),
-        // endTime: this.timeValue[1].getTime(),
-        time: "2023_11_02",
-        startTime: "2023_11_02 00:00:00",
-        endTime: "2023_11_02 59:59:59",
+        time,
+        startTime,
+        endTime,
         pageNum: this.pageNum,
         pageSize: this.pageSize,
       });
 
       if (Number(res.code) === 200) {
         const data = res.data;
-        this.total = data.total;
+        this.total = data && data.total;
 
         this.xAxisList =
+          data &&
           data.list &&
           data.list.map((item) =>
             this.getTimeStrByDate(new Date(item.recordTime))
           );
 
-        data.list &&
+        data &&
+          data.list &&
           data.list.forEach((item) => {
             this.chartData.voltageList.push(
               (Number(item.voltage) / 100).toFixed(2)
@@ -257,6 +266,12 @@ export default {
             data: this.chartData && this.chartData.voltageList,
             animationDuration: 2800,
             animationEasing: "cubicInOut",
+            markPoint: {
+              data: [
+                { type: "max", name: "Max" },
+                // { type: "min", name: "Min" },
+              ],
+            },
           },
           {
             name: "总电流",
@@ -277,6 +292,12 @@ export default {
             data: this.chartData && this.chartData.currentList,
             animationDuration: 2800,
             animationEasing: "quadraticOut",
+            markPoint: {
+              data: [
+                { type: "max", name: "Max" },
+                // { type: "min", name: "Min" },
+              ],
+            },
           },
           {
             name: "电量(%)",
@@ -297,6 +318,12 @@ export default {
             data: this.chartData && this.chartData.socList,
             animationDuration: 2800,
             animationEasing: "quadraticOut",
+            markPoint: {
+              data: [
+                { type: "max", name: "Max" },
+                // { type: "min", name: "Min" },
+              ],
+            },
           },
           {
             name: "剩余容量",
@@ -317,6 +344,12 @@ export default {
             data: this.chartData && this.chartData.capacityList,
             animationDuration: 2800,
             animationEasing: "quadraticOut",
+            markPoint: {
+              data: [
+                { type: "max", name: "Max" },
+                // { type: "min", name: "Min" },
+              ],
+            },
           },
           {
             name: "功率温度值",
@@ -337,6 +370,12 @@ export default {
             data: this.chartData && this.chartData.powerTemperatureList,
             animationDuration: 2800,
             animationEasing: "quadraticOut",
+            markPoint: {
+              data: [
+                { type: "max", name: "Max" },
+                // { type: "min", name: "Min" },
+              ],
+            },
           },
           {
             name: "电芯温度值",
@@ -357,6 +396,12 @@ export default {
             data: this.chartData && this.chartData.coreTemperatureList,
             animationDuration: 2800,
             animationEasing: "quadraticOut",
+            markPoint: {
+              data: [
+                { type: "max", name: "Max" },
+                // { type: "min", name: "Min" },
+              ],
+            },
           },
           {
             name: "环境温度",
@@ -377,6 +422,12 @@ export default {
             data: this.chartData && this.chartData.temperatureList,
             animationDuration: 2800,
             animationEasing: "quadraticOut",
+            markPoint: {
+              data: [
+                { type: "max", name: "Max" },
+                // { type: "min", name: "Min" },
+              ],
+            },
           },
           {
             name: "压差",
@@ -397,15 +448,28 @@ export default {
             data: this.chartData && this.chartData.diffVolList,
             animationDuration: 2800,
             animationEasing: "quadraticOut",
+            markPoint: {
+              data: [
+                { type: "max", name: "Max" },
+                // { type: "min", name: "Min" },
+              ],
+            },
           },
         ],
       });
     },
 
     changeDate(e) {
-      if (e && this.timeValue) {
-        this.getBmsDataOperate();
-      } else {
+      this.resetChartOperate(e);
+    },
+
+    changeTime(e) {
+      this.resetChartOperate(e);
+    },
+
+    resetChartOperate(e) {
+      if (!e) {
+        this.total = 0;
         this.chartData = {
           voltageList: [],
           currentList: [],
@@ -419,21 +483,26 @@ export default {
       }
     },
 
-    changeTime(e) {
-      if (e && this.dateValue) {
-        this.getBmsDataOperate();
-      } else {
-        this.chartData = {
-          voltageList: [],
-          currentList: [],
-          socList: [],
-          capacityList: [],
-          powerTemperatureList: [],
-          coreTemperatureList: [],
-          temperatureList: [],
-          diffVolList: [],
-        };
-      }
+    queryOperate() {
+      this.getBmsDataOperate();
+      // this.debounce(this.getBmsDataOperate)();
+    },
+
+    debounce(fn, delay = 1000) {
+      console.log("🚀 ~ file: CurveTheDayView.vue:491 ~ debounce ~ debounce:");
+      const that = this;
+      let timer = null;
+      return function () {
+        console.log("🚀 ~ file: CurveTheDayView.vue:496 ~ timer:", timer);
+
+        if (timer) {
+          clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+          fn.apply(that);
+          timer = null;
+        }, delay);
+      };
     },
 
     handleSizeChange(val) {
@@ -447,7 +516,8 @@ export default {
       this.getBmsDataOperate();
     },
 
-    getTimeStrByDate(date, type) {
+    getTimeStrByDate(date, type, connector) {
+      const connectorCurr = connector || "-";
       const y = date.getFullYear();
       const M = date.getMonth() + 1;
       const d = date.getDate();
@@ -457,7 +527,11 @@ export default {
       let currTime = "";
       if (type === "date") {
         currTime =
-          y + "-" + (M < 10 ? "0" + M : M) + "-" + (d < 10 ? "0" + d : d);
+          y +
+          connectorCurr +
+          (M < 10 ? "0" + M : M) +
+          connectorCurr +
+          (d < 10 ? "0" + d : d);
       } else {
         currTime =
           " " +
@@ -479,6 +553,10 @@ export default {
   width: 100%;
   /* height: 370px; */
   .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     margin: 10px 0 20px 10px;
 
     color: #419fff;
