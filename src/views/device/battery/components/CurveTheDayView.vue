@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:04
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-11-03 22:03:04
+ * @LastEditTime : 2023-11-03 22:06:50
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/CurveTheDayView.vue
 -->
@@ -491,11 +491,11 @@ export default {
     },
 
     debounce(fn, delay = 1000) {
-      console.log("🚀 ~ file: CurveTheDayView.vue:491 ~ debounce ~ debounce:");
+      // console.log("🚀 ~ file: CurveTheDayView.vue:491 ~ debounce ~ debounce:");
       const that = this;
       let timer = null;
       return function () {
-        console.log("🚀 ~ file: CurveTheDayView.vue:496 ~ timer:", timer);
+        // console.log("🚀 ~ file: CurveTheDayView.vue:496 ~ timer:", timer);
 
         if (timer) {
           clearTimeout(timer);
@@ -512,7 +512,7 @@ export default {
     },
 
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
       this.pageNum = Number(val) - 1;
 
       // if (!this.dateValue || !this.timeValue) {
