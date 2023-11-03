@@ -18,7 +18,7 @@
 <script>
 import resize from "@/views/dashboard/mixins/resize.js";
 import { mapInfo } from "@/api/device/battery";
-import electroMobileImg from "@/assets/images/electromobile2.png";
+import electroMobileImg from "@/assets/images/electromobile3.png";
 export default {
   mixins: [resize],
   props: {},
@@ -149,8 +149,10 @@ export default {
         map: map,
         styles: {
           "car-down": new TMap.MarkerStyle({
-            width: 52.5,
-            height: 30,
+            // width: 52.5,
+            // height: 30,
+            width: 45,
+            height: 45,
             anchor: {
               x: 20,
               y: 20,
