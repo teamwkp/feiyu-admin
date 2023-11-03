@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:04
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-11-03 20:37:47
+ * @LastEditTime : 2023-11-03 22:03:04
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/CurveTheDayView.vue
 -->
@@ -131,6 +131,7 @@ export default {
   mounted() {
     // 默认日期
     // this.dateValue = this.dateDefault;
+    this.getBmsDataOperate();
     this.$nextTick(() => {
       this.initChart();
     });
@@ -144,21 +145,18 @@ export default {
   },
   methods: {
     async getBmsDataOperate() {
-      if (!this.dateValue || !this.timeValue) {
-        this.$message({
-          message: "请选择日期和时间",
-          type: "warning",
-        });
-        return;
-      }
-
-      const time = this.getTimeStrByDate(this.dateValue, "date", "_");
-      const startTime = `${time} ${this.getTimeStrByDate(
-        this.timeValue && this.timeValue[0]
-      )}`;
-      const endTime = `${time}${this.getTimeStrByDate(
-        this.timeValue && this.timeValue[1]
-      )}`;
+      const time =
+        (this.dateValue &&
+          this.getTimeStrByDate(this.dateValue, "date", "_")) ||
+        undefined;
+      const startTime = this.timeValue
+        ? `${time} ${this.getTimeStrByDate(
+            this.timeValue && this.timeValue[0]
+          )}`
+        : undefined;
+      const endTime = this.timeValue
+        ? `${time}${this.getTimeStrByDate(this.timeValue && this.timeValue[1])}`
+        : undefined;
       const res = await getBmsData({
         batterySn: this.batterySn,
         time,
@@ -481,6 +479,13 @@ export default {
     },
 
     queryOperate() {
+      if (!this.dateValue || !this.timeValue) {
+        this.$message({
+          message: "请选择日期和时间",
+          type: "warning",
+        });
+        return;
+      }
       this.getBmsDataOperate();
       // this.debounce(this.getBmsDataOperate)();
     },
@@ -507,9 +512,17 @@ export default {
     },
 
     handleCurrentChange(val) {
-      // console.log(`当前页: ${val}`);
-
+      console.log(`当前页: ${val}`);
       this.pageNum = Number(val) - 1;
+
+      // if (!this.dateValue || !this.timeValue) {
+      //   this.$message({
+      //     message: "请选择日期和时间",
+      //     type: "warning",
+      //   });
+      //   return;
+      // }
+
       this.getBmsDataOperate();
     },
 
