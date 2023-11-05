@@ -29,12 +29,25 @@ export default {
   mixins: [resize],
   props: ["xAxisList", "yAxisList"],
   data() {
-    return {};
+    return {
+      timer: null,
+    };
+  },
+  destroyed() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
   },
   mounted() {
     // this.coreVoltageListOperate();
     this.$nextTick(() => {
       this.initChart();
+      if (this.timer) {
+        clearInterval(this.timer);
+      }
+      this.timer = setInterval(() => {
+        this.initChart();
+      }, 30000);
     });
   },
   beforeDestroy() {
