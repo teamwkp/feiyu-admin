@@ -151,8 +151,8 @@ export default {
           "car-down": new TMap.MarkerStyle({
             // width: 52.5,
             // height: 30,
-            width: 45,
-            height: 45,
+            width: 55,
+            height: 55,
             anchor: {
               x: 20,
               y: 20,
