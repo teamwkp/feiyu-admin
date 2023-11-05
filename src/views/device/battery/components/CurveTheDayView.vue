@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:04
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-11-03 22:06:50
+ * @LastEditTime : 2023-11-05 11:39:38
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/CurveTheDayView.vue
 -->
@@ -121,12 +121,12 @@ export default {
   },
 
   watch: {
-    chartData: {
-      deep: true,
-      handler(val) {
-        this.setOptions(val);
-      },
-    },
+    // chartData: {
+    //   deep: true,
+    //   handler(val) {
+    //     this.setOptions(val);
+    //   },
+    // },
   },
   mounted() {
     // 默认日期
@@ -176,25 +176,55 @@ export default {
           this.getTimeStrByDate(new Date(item.recordTime))
         );
 
+        this.chartData = {
+          voltageList: [],
+          currentList: [],
+          socList: [],
+          capacityList: [],
+          powerTemperatureList: [],
+          coreTemperatureList: [],
+          temperatureList: [],
+          diffVolList: [],
+        };
         currList.forEach((item) => {
           this.chartData.voltageList.push(
-            (Number(item.voltage) / 100).toFixed(2)
+            item.voltage !== null
+              ? (Number(item.voltage) / 100).toFixed(2)
+              : null
           );
           this.chartData.currentList.push(
-            (Number(item.current) / 100).toFixed(2)
+            item.current !== null
+              ? (Number(item.current) / 100).toFixed(2)
+              : null
           );
-          this.chartData.socList.push((Number(item.soc) / 100).toFixed(2));
+          this.chartData.socList.push(
+            item.soc !== null ? (Number(item.soc) / 100).toFixed(2) : null
+          );
           this.chartData.capacityList.push(
-            (Number(item.capacity) / 100).toFixed(2)
+            item.capacity !== null
+              ? (Number(item.capacity) / 100).toFixed(2)
+              : null
           );
-          this.chartData.powerTemperatureList.push(item.powerTemperature);
-          this.chartData.coreTemperatureList.push(item.coreTemperature);
-          this.chartData.temperatureList.push(item.temperature);
+          this.chartData.powerTemperatureList.push(
+            item.powerTemperature !== null
+              ? Number(item.powerTemperature)
+              : null
+          );
+          this.chartData.coreTemperatureList.push(
+            item.coreTemperature !== null ? Number(item.coreTemperature) : null
+          );
+          this.chartData.temperatureList.push(
+            item.temperature !== null ? Number(item.temperature) : null
+          );
           this.chartData.diffVolList.push(
-            (Number(item.diffVol) / 100).toFixed(2)
+            item.diffVol !== null
+              ? (Number(item.diffVol) / 100).toFixed(2)
+              : null
           );
         });
       }
+
+      this.setOptions(this.chartData);
     },
 
     // 过滤函数
@@ -219,10 +249,9 @@ export default {
 
     initChart() {
       this.chart = echarts.init(this.$refs.line);
-
-      this.setOptions(this.chartData);
+      // this.setOptions();
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions() {
       this.chart.setOption({
         xAxis: {
           data: this.xAxisList,
@@ -306,11 +335,11 @@ export default {
             animationDuration: 2800,
             animationEasing: "quadraticOut",
             markPoint: {
-              data: [
-                { type: "max", name: "Max" },
-                // { type: "min", name: "Min" },
-              ],
+              data: [{ type: "max", name: "Max" }],
             },
+            // markLine: {
+            //   data: [{ type: "max", name: "Max" }],
+            // },
           },
           {
             name: "电量(%)",
@@ -337,6 +366,9 @@ export default {
                 // { type: "min", name: "Min" },
               ],
             },
+            // markLine: {
+            //   data: [{ type: "max", name: "Max" }],
+            // },
           },
           {
             name: "剩余容量",
@@ -363,6 +395,9 @@ export default {
                 // { type: "min", name: "Min" },
               ],
             },
+            // markLine: {
+            //   data: [{ type: "max", name: "Max" }],
+            // },
           },
           {
             name: "功率温度值",
@@ -389,6 +424,9 @@ export default {
                 // { type: "min", name: "Min" },
               ],
             },
+            // markLine: {
+            //   data: [{ type: "max", name: "Max" }],
+            // },
           },
           {
             name: "电芯温度值",
@@ -415,6 +453,9 @@ export default {
                 // { type: "min", name: "Min" },
               ],
             },
+            // markLine: {
+            //   data: [{ type: "max", name: "Max" }],
+            // },
           },
           {
             name: "环境温度",
@@ -441,6 +482,9 @@ export default {
                 // { type: "min", name: "Min" },
               ],
             },
+            // markLine: {
+            //   data: [{ type: "max", name: "Max" }],
+            // },
           },
           {
             name: "压差",
@@ -467,6 +511,9 @@ export default {
                 // { type: "min", name: "Min" },
               ],
             },
+            // markLine: {
+            //   data: [{ type: "max", name: "Max" }],
+            // },
           },
         ],
       });

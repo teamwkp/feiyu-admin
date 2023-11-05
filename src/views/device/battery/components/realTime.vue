@@ -47,22 +47,25 @@ export default {
 
 <style lang="scss" scoped>
 .realTime-wrap {
-  padding: 15px;
-  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+
+  box-sizing: border-box;
+  padding: 15px;
   .left-box {
     width: 65%;
+
     border-radius: 5px;
   }
   .right-box {
     width: 34.5%;
     /* height: calc(100vh - 45px); */
     max-height: 1063px;
+
     border-radius: 5px;
     .report-box {
-      margin-top: 10px;
       min-height: 300px;
+      margin-top: 10px;
     }
   }
 }
