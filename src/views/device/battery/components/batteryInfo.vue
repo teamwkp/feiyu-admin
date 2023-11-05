@@ -67,7 +67,11 @@
 
     <div class="icons-box">
       <div class="img-box">
-        <img class="iconpng" src="@/assets/images/电压.png" alt="" />
+        <img
+          class="iconpng"
+          src="@/assets/images/electric_tension_img.png"
+          alt=""
+        />
       </div>
 
       <div>总电压V</div>
@@ -77,7 +81,11 @@
     </div>
     <div class="icons-box">
       <div class="img-box">
-        <img class="iconpng" src="@/assets/images/电流.png" alt="" />
+        <img
+          class="iconpng"
+          src="@/assets/images/electric_current_img.png"
+          alt=""
+        />
       </div>
 
       <div>电流A</div>
@@ -87,7 +95,7 @@
     </div>
     <div class="icons-box">
       <div class="img-box">
-        <img class="iconpng" src="@/assets/images/功率.png" alt="" />
+        <img class="iconpng" src="@/assets/images/power_img.png" alt="" />
       </div>
 
       <div>功率W</div>
@@ -119,26 +127,32 @@ export default {
   width: 35px;
 }
 .battery-info {
-  width: 100%;
   display: flex;
+
+  width: 100%;
   height: 200px;
-  border-radius: 5px;
   margin-bottom: 10px;
+
+  border-radius: 5px;
   .battery-box {
     position: relative;
     .battery {
       width: 180px;
     }
     .insert {
+      position: absolute;
       top: 17px;
       left: 24px;
-      border-radius: 3px;
-      position: absolute;
-      height: 66px;
-      background: #0dc191;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
+      height: 66px;
+
+      border-radius: 3px;
+      background: #0dc191;
+
       font-size: 14px;
       font-weight: bold;
     }
@@ -146,10 +160,13 @@ export default {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
+
       display: flex;
       align-items: center;
+
+      transform: translate(-50%, -50%);
+      text-align: center;
+
       font-size: 14px;
     }
   }
@@ -157,28 +174,34 @@ export default {
     font-size: 14px;
   }
   .icons-box {
-    width: 105px;
     display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+
+    width: 105px;
+
     font-size: 14px;
     .img-box {
-      width: 50px;
-      height: 50px;
-      border: 1px solid #eee;
-      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
+
+      width: 50px;
+      height: 50px;
       margin-bottom: 5px;
+
+      border: 1px solid #eee;
+      border-radius: 4px;
     }
   }
 }
 .subtext {
-  color: #0dc191;
-  font-size: 16px;
   margin-top: 8px;
+
+  color: #0dc191;
+
+  font-size: 16px;
 }
 .itemi {
   margin-bottom: 10px;
