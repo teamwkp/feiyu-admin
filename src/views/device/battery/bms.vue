@@ -74,14 +74,26 @@ export default {
       color: "#0DC191",
       batterySn: "",
       batteryObj: null,
+      timer: null,
     };
   },
   components: {
     realTime,
     bMap,
   },
+  destroyed() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+  },
   mounted() {
     this.getInfo();
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+    this.timer = setInterval(() => {
+      this.getInfo();
+    }, 30000);
   },
   methods: {
     changeActive(val) {
