@@ -203,8 +203,9 @@ export default {
   justify-content: center;
 
   height: 100%;
+  /* background-image: url("../assets/images/login-background.jpg"); */
 
-  background-image: url("../assets/images/login-background.jpg");
+  background-image: url("../assets/images/login-background_img.jpg");
   background-size: cover;
 }
 .title {
