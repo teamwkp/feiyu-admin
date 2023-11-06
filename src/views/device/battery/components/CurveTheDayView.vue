@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:04
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-11-05 23:23:21
+ * @LastEditTime : 2023-11-06 17:45:33
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/CurveTheDayView.vue
 -->
@@ -198,7 +198,7 @@ export default {
               : null
           );
           this.chartData.socList.push(
-            item.soc !== null ? (Number(item.soc) / 100).toFixed(2) : nu4l
+            item.soc !== null ? (Number(item.soc) / 100).toFixed(4) : null
           );
           this.chartData.capacityList.push(
             item.capacity !== null
