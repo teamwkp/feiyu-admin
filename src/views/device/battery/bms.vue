@@ -56,7 +56,7 @@
       v-if="activeTab == 'map'"
       style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px"
     >
-      <bMap></bMap>
+      <bMap :changeActive="{ changeActive }"></bMap>
     </el-row>
   </div>
 </template>
@@ -123,20 +123,25 @@ export default {
   width: 100%;
   min-width: 1200px;
   .header {
-    width: 100%;
-    height: 50px;
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    width: 100%;
+    height: 50px;
+
+    border-bottom: 1px solid #eee;
+    background-color: #fff;
+
     font-size: 14px;
     .tab {
       display: flex;
       align-items: center;
+
       cursor: pointer;
       .label {
         color: #555;
+
         font-weight: bold;
       }
       .line {
@@ -145,12 +150,14 @@ export default {
     }
   }
   .line2 {
-    padding: 0 30px;
-    height: 60px;
-    margin-top: 10px;
-    border-top: 1px solid #eee;
     display: flex;
     justify-content: space-between;
+
+    height: 60px;
+    margin-top: 10px;
+    padding: 0 30px;
+
+    border-top: 1px solid #eee;
   }
 }
 </style>

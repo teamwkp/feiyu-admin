@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:04
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-11-05 11:39:38
+ * @LastEditTime : 2023-11-05 23:23:21
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/CurveTheDayView.vue
 -->
@@ -189,20 +189,20 @@ export default {
         currList.forEach((item) => {
           this.chartData.voltageList.push(
             item.voltage !== null
-              ? (Number(item.voltage) / 100).toFixed(2)
+              ? (Number(item.voltage) / 100).toFixed(4)
               : null
           );
           this.chartData.currentList.push(
             item.current !== null
-              ? (Number(item.current) / 100).toFixed(2)
+              ? (Number(item.current) / 100).toFixed(4)
               : null
           );
           this.chartData.socList.push(
-            item.soc !== null ? (Number(item.soc) / 100).toFixed(2) : null
+            item.soc !== null ? (Number(item.soc) / 100).toFixed(2) : nu4l
           );
           this.chartData.capacityList.push(
             item.capacity !== null
-              ? (Number(item.capacity) / 100).toFixed(2)
+              ? (Number(item.capacity) / 100).toFixed(4)
               : null
           );
           this.chartData.powerTemperatureList.push(
@@ -218,7 +218,7 @@ export default {
           );
           this.chartData.diffVolList.push(
             item.diffVol !== null
-              ? (Number(item.diffVol) / 100).toFixed(2)
+              ? (Number(item.diffVol) / 100).toFixed(4)
               : null
           );
         });
