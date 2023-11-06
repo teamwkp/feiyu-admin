@@ -47,7 +47,7 @@
       </div>
 
       <div class="text itemi" v-if="batteryObj">
-        充电状态：<span style="color: #888" v-if="batteryObj.chargeState === 0"
+        电池状态：<span style="color: #888" v-if="batteryObj.chargeState === 0"
           >放电状态</span
         >
         <span style="color: #888" v-if="batteryObj.chargeState === 1"

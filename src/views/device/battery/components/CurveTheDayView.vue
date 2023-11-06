@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:04
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-11-06 17:45:33
+ * @LastEditTime : 2023-11-06 23:22:20
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/CurveTheDayView.vue
 -->
@@ -90,7 +90,9 @@ export default {
       xAxisList: [],
       chartData: {
         voltageList: [],
-        currentList: [],
+        // currentList: [],
+        inCurrentList: [],
+        outCurrentList: [],
         socList: [],
         capacityList: [],
         powerTemperatureList: [],
@@ -178,7 +180,9 @@ export default {
 
         this.chartData = {
           voltageList: [],
-          currentList: [],
+          // currentList: [],
+          inCurrentList: [],
+          outCurrentList: [],
           socList: [],
           capacityList: [],
           powerTemperatureList: [],
@@ -192,11 +196,17 @@ export default {
               ? (Number(item.voltage) / 100).toFixed(4)
               : null
           );
-          this.chartData.currentList.push(
-            item.current !== null
-              ? (Number(item.current) / 100).toFixed(4)
+          this.chartData.inCurrentList.push(
+            item.inCurrent !== null
+              ? (Number(item.inCurrent) / 100).toFixed(4)
               : null
           );
+          this.chartData.outCurrentList.push(
+            item.outCurrent !== null
+              ? (Number(item.outCurrent) / 100).toFixed(4)
+              : null
+          );
+
           this.chartData.socList.push(
             item.soc !== null ? (Number(item.soc) / 100).toFixed(4) : null
           );
@@ -217,9 +227,7 @@ export default {
             item.temperature !== null ? Number(item.temperature) : null
           );
           this.chartData.diffVolList.push(
-            item.diffVol !== null
-              ? (Number(item.diffVol) / 100).toFixed(4)
-              : null
+            item.diffVol !== null ? Number(item.diffVol) : null
           );
         });
       }
@@ -282,13 +290,15 @@ export default {
         legend: {
           data: [
             "总电压",
-            "总电流",
+            // "总电流",
+            "充电电流",
+            "放电电流",
             "电量(%)",
             "剩余容量",
             "功率温度值",
             "电芯温度值",
             "环境温度",
-            "压差",
+            "压差(mv)",
           ],
         },
         series: [
@@ -315,8 +325,9 @@ export default {
               ],
             },
           },
+
           {
-            name: "总电流",
+            name: "充电电流",
             smooth: true,
             type: "line",
             itemStyle: {
@@ -331,7 +342,7 @@ export default {
                 },
               },
             },
-            data: this.chartData && this.chartData.currentList,
+            data: this.chartData && this.chartData.inCurrentList,
             animationDuration: 2800,
             animationEasing: "quadraticOut",
             markPoint: {
@@ -341,6 +352,34 @@ export default {
             //   data: [{ type: "max", name: "Max" }],
             // },
           },
+
+          {
+            name: "放电电流",
+            smooth: true,
+            type: "line",
+            itemStyle: {
+              normal: {
+                color: "#e7e437",
+                lineStyle: {
+                  color: "#e7e437",
+                  width: 2,
+                },
+                areaStyle: {
+                  color: "#f3f8ff",
+                },
+              },
+            },
+            data: this.chartData && this.chartData.outCurrentList,
+            animationDuration: 2800,
+            animationEasing: "quadraticOut",
+            markPoint: {
+              data: [{ type: "max", name: "Max" }],
+            },
+            // markLine: {
+            //   data: [{ type: "max", name: "Max" }],
+            // },
+          },
+
           {
             name: "电量(%)",
             smooth: true,
@@ -487,7 +526,7 @@ export default {
             // },
           },
           {
-            name: "压差",
+            name: "压差(mv)",
             smooth: true,
             type: "line",
             itemStyle: {
@@ -532,7 +571,9 @@ export default {
         this.total = 0;
         this.chartData = {
           voltageList: [],
-          currentList: [],
+          // currentList: [],
+          inCurrentList: [],
+          outCurrentList: [],
           socList: [],
           capacityList: [],
           powerTemperatureList: [],
