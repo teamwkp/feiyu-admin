@@ -125,6 +125,7 @@
 <script>
 import { ajaxDeviceLogList } from "@/api/device/deviceLog";
 import { dateFormat } from "@/utils/my-utils";
+import dayjs from "dayjs";
 // import dayjs from "dayjs";
 export default {
   name: "deviceLog",
@@ -191,13 +192,28 @@ export default {
   methods: {
     /** 查询电池路由记录列表 */
     getList() {
+      console.log("xx");
+      console.log(
+        dayjs(new Date().getTime()).format("YYYY-MM-DD HH:mm:ss").split(" ")[1]
+      );
       this.loading = true;
       let { startTime, endTime, dayStr } = this.queryParams;
+      let _day = dayStr ? dayStr.replace(/\-/g, "_") : null;
+      let _start = startTime
+        ? _day +
+          " " +
+          dayjs(startTime.getTime()).format("YYYY-MM-DD HH:mm:ss").split(" ")[1]
+        : null;
+      let _end = endTime
+        ? _day +
+          " " +
+          dayjs(endTime.getTime()).format("YYYY-MM-DD HH:mm:ss").split(" ")[1]
+        : null;
       let params = {
         ...this.queryParams,
-        dayStr: dayStr ? dayStr.replace(/\-/g, "_") : null,
-        startTime: startTime ? startTime.getTime() : null,
-        endTime: endTime ? endTime.getTime() : null,
+        dayStr: _day,
+        startTime: _start,
+        endTime: _end,
       };
       ajaxDeviceLogList(params)
         .then(({ data }) => {
@@ -209,6 +225,7 @@ export default {
           this.loading = false;
         });
     },
+    handlTime() {},
     // 取消按钮
     cancel() {
       this.open = false;
