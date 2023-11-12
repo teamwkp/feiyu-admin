@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:23
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-11-02 14:45:47
+ * @LastEditTime : 2023-11-12 18:38:12
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/SingleVoltageView.vue
 -->
@@ -111,6 +111,19 @@ export default {
             barWidth: "60%",
             data: this.yAxisList,
             animationDuration,
+            itemStyle: {
+              normal: {
+                label: {
+                  show: true, //开启显示
+                  position: "top", //在上方显示
+                  textStyle: {
+                    //数值样式
+                    color: "black",
+                    fontSize: 10,
+                  },
+                },
+              },
+            },
           },
         ],
       });

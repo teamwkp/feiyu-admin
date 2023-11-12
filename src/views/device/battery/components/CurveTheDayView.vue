@@ -2,7 +2,7 @@
  * @Author       : liqiao
  * @Date         : 2023-10-29 22:14:04
  * @LastEditors  : liqiao
- * @LastEditTime : 2023-11-06 23:34:20
+ * @LastEditTime : 2023-11-12 18:48:23
  * @Description  : Do not edit
  * @FilePath     : /feiyu-admin/src/views/device/battery/components/CurveTheDayView.vue
 -->
@@ -268,10 +268,13 @@ export default {
           },
         },
         grid: {
+          // left: 10,
+          // right: 10,
+          // bottom: 20,
+          // top: 30,
           left: 10,
           right: 10,
-          bottom: 20,
-          top: 30,
+          // bottom: 10,
           containLabel: true,
         },
         tooltip: {
@@ -280,6 +283,7 @@ export default {
             type: "cross",
           },
           padding: [5, 10],
+          // padding: [40, 40],
         },
         yAxis: {
           axisTick: {
@@ -684,7 +688,7 @@ export default {
   }
   .chart__content {
     width: 100%;
-    height: 500px;
+    height: 600px;
   }
   .time__content {
     display: flex;
