@@ -201,7 +201,8 @@ export default {
   height: 100%;
   /* background-image: url("../assets/images/login-background.jpg"); */
 
-  background-image: url("../assets/images/login-background_img.jpg");
+  /* background-image: url("../assets/images/login-background_img.jpg"); */
+  background-color: #bfbfbf;
   background-size: cover;
 }
 .title {
