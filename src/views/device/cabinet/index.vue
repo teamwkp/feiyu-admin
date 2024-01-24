@@ -232,6 +232,14 @@
             size="mini"
             type="text"
             icon="el-icon-edit"
+            @click="handleDetail(scope.row)"
+            v-hasPermi="['device:cabinet:edit']"
+            >详情</el-button
+          >
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['device:cabinet:edit']"
             >修改</el-button
@@ -440,6 +448,12 @@ export default {
       this.reset();
       this.open = true;
       this.title = "添加换电柜";
+    },
+    // 柜子详情
+    handleDetail(row) {
+      this.$router.push({
+        path: `/device/cabinet-detail/detail/${row.devId}`,
+      });
     },
     /** 修改按钮操作 */
     handleUpdate(row) {

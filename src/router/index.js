@@ -161,6 +161,20 @@ export const constantRoutes = [
       },
     ],
   },
+  {
+    path: "/device/cabinet-detail",
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: "detail/:cabinetId",
+        component: (resolve) =>
+          require(["@/views/device/cabinet/detail.vue"], resolve),
+        name: "CabinetDetail",
+        meta: { title: "电柜详情", activeMenu: "/device/cabinet" },
+      },
+    ],
+  },
 ];
 
 export default new Router({
