@@ -225,13 +225,14 @@
       <el-table-column
         label="操作"
         align="center"
+        width="150"
         class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
+            icon="el-icon-document"
             @click="handleDetail(scope.row)"
             v-hasPermi="['device:cabinet:edit']"
             >详情</el-button
