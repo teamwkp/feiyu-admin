@@ -18,7 +18,7 @@ export default {
         // 开仓
         let res = await openDoorFn({
           devId: this.cabinetId,
-          boxSn: item.doorId,
+          boxSn: item.dooorId,
         });
         if (res.code == 200) {
           this.$message({
@@ -30,7 +30,7 @@ export default {
         // 禁用启用
         let res = await fbidDoorFn({
           devId: this.cabinetId,
-          boxSn: item.doorId,
+          boxSn: item.dooorId,
           status: item.doorFbStatus == 0 ? 1 : 0,
         });
         if (res.code == 200) {
